@@ -48,16 +48,23 @@ sub('<meta name="description" content="A five-chapter night walk through a Kyoto
     '<meta name="description" content="Chinthan Shetty, software engineer building full-stack and AI-powered products: DevLaunch, ARC, Stock-Watch and more.">')
 
 # ------------------------------------------------------- wordmark (3D + fallback)
-# The bundled "Wordmark" face is subset to A E G K S, so the name is set in Onest 700,
-# which ships complete. Eight letters need far less tracking than four.
-sub("const word = 'KAGE', gl = [];", "const word = 'CHINTHAN', gl = [];")
-sub("const SZ = 320, TRACK = .40, PAD = 26;", "const SZ = 320, TRACK = .08, PAD = 26;")
-sub("'600 ' + SZ + 'px Wordmark, sans-serif'", "'700 ' + SZ + 'px Onest, sans-serif'", 2)
-sub("document.fonts.load('600 320px Wordmark')", "document.fonts.load('700 320px Onest')")
+# The bundled "Wordmark" face is subset to A E G K S, so the name is set in Playfair Display
+# (600): "Chin" upright and "than" italic, drawn glyph by glyph like the original.
+sub("const word = 'KAGE', gl = [];", "const word = 'Chinthan', gl = [];")
+sub("const SZ = 320, TRACK = .40, PAD = 26;", "const SZ = 320, TRACK = .03, PAD = 26;")
+sub("m.font = '600 ' + SZ + 'px Wordmark, sans-serif';",
+    "const WFONT = i => (i >= 4 ? 'italic ' : '') + '600 ' + SZ + 'px \"Playfair Display\", Georgia, serif';\n  m.font = WFONT(0);")
+sub("for (const ch of word) {\n    const t = m.measureText(ch);",
+    "for (const [wi, ch] of [...word].entries()) {\n    m.font = WFONT(wi);\n    const t = m.measureText(ch);")
+sub("x.font = '600 ' + SZ + 'px Wordmark, sans-serif';", "x.font = WFONT(i);")
+sub("document.fonts.load('600 320px Wordmark')",
+    "Promise.all([document.fonts.load('600 320px \"Playfair Display\"'), document.fonts.load('italic 600 320px \"Playfair Display\"')])")
 sub("font-family:'Wordmark','Onest',sans-serif; font-weight:600; font-size:21.4vw;",
-    "font-family:'Onest',sans-serif; font-weight:700; font-size:11.2vw;")
+    "font-family:'Playfair Display',Georgia,serif; font-weight:600; font-size:13vw;")
+# a mixed-case serif word is taller than the old caps at the same width, so keep it inside the frame
+sub("const fill = narrow ? .96 : 1.00;", "const fill = narrow ? .88 : .84;")
 sub('<div class="word-fb" aria-hidden="true">KAGE</div>',
-    '<div class="word-fb" aria-hidden="true">CHINTHAN</div>')
+    '<div class="word-fb" aria-hidden="true">Chinthan</div>')
 
 # ------------------------------------------------------------------ preloader
 sub('<div class="pre-jp jp">影の道</div>', '<div class="pre-jp">Chinthan Shetty</div>')
@@ -419,19 +426,26 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
 .me-about{ width:min(220px,56vw); aspect-ratio:4/5; border-radius:14px; overflow:hidden; margin-bottom:26px; }
 .me-about img{ width:100%; height:100%; object-fit:cover; object-position:50% 26%; }
 @media (max-width:820px){ .hero-top::before{ inset:-30px -24px -40px; } }
-/* type: Syne for display, Manrope for reading; every piece of text is pure white */
+/* type: Playfair Display for headings and the name, Manrope for reading; all text is pure white */
 :root{ --bone:#fff; --bone-dim:#fff; --muted:#fff; }
 body{ font-family:'Manrope','Onest',system-ui,-apple-system,'Helvetica Neue',sans-serif; color:#fff; }
-h1, h2, h3, .display, .more-title, .les h3, .card-lab b, .chip .tx b, .me-big b, .gate-stats div b, .brand-tx b, .cta{
-  font-family:'Syne','Onest',system-ui,sans-serif; }
-.display, .h-sec, h1{ font-weight:700; letter-spacing:-.025em; }
-.les h3, .more-title, .card-lab b, .me-big b{ font-weight:600; }
-/* Syne runs wide, so section headings step down a size to keep their line count */
-.display.h-sec{ font-size:clamp(28px,3.5vw,50px); line-height:1.04; }
+h1, h2, h3, .display, .more-title, .les h3, .card-lab b, .chip .tx b, .chip .num, .me-big b, .gate-stats div b,
+.brand-tx b, .pre-jp, .word-fb{ font-family:'Playfair Display',Georgia,'Times New Roman',serif; }
+.display, .h-sec, h1, h2{ font-weight:500; letter-spacing:-.015em; text-transform:none; }
+.display .word-mask:last-of-type .word, h1 .word-mask:last-of-type .word{ font-style:italic; }
+.les h3, .more-title, .me-big b, .card-lab b, .chip .tx b{ font-weight:600; text-transform:none; letter-spacing:0; }
+.card-lab b{ font-size:clamp(18px,1.7vw,26px); }
+.chip .tx b{ font-size:clamp(17px,1.5vw,22px); }
+.brand-tx b{ text-transform:none; letter-spacing:.01em; font-size:20px; font-weight:600; }
+.me-big b{ font-size:clamp(20px,1.7vw,26px); }
+.display.h-sec{ font-size:clamp(34px,4.6vw,66px); line-height:1.05; }
+.cta{ font-family:'Manrope','Onest',system-ui,sans-serif; }
+#eternity h2, .fin h2{ text-transform:none; }
 .hero-sub, .lead, .body, .body-lg, .gate-copy p, .les p, .chip p, .foot-brand p, .les .t, .card-meta,
 .gate-stats div span, .foot li a, .foot h4, .foot-base span, .job-where, .job-pts li, .job-stack span,
 .open-pill, .more-note, .me-big span, .sec-head .k, .hero-cue, .nav-link, .les .k, .les h3 em,
-.card-lab .jp, .eyebrow, .peek-cap i, .hero-side .v, .chip .num, .chip .tx b, .card-lab b, .gate-stats div b{ color:#fff !important; }
+.card-lab .jp, .eyebrow, .peek-cap i, .hero-side .v, .chip .num, .chip .tx b, .card-lab b, .gate-stats div b,
+.brand-tx b, .brand-tx i{ color:#fff !important; }
 .foot li a:hover{ text-decoration:underline; text-underline-offset:4px; }
 .job-stack span, .open-pill{ border-color:rgba(255,255,255,.28); }
 @media (max-width:820px){ body[data-layout-closing="b"] #eternity h2{ font-size:clamp(40px,12.5vw,110px); } }
@@ -549,7 +563,7 @@ sub("_t.x -= RIG.mx * 0.20 * par; _t.y -= RIG.my * 0.12 * par;", "_t.x -= RIG.mx
 
 GFONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
           '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap">')
+          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap">')
 sub('<link rel="stylesheet" href="secret-pathways-assets/fonts.css">',
     '<link rel="stylesheet" href="secret-pathways-assets/fonts.css">' + GFONTS)
 

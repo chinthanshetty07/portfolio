@@ -149,12 +149,12 @@ sub('''    <div><b>05</b><span>Chapters</span></div>
     <div><b>∞</b><span>Stillness</span></div>''',
     '''    <div><b>~1,360</b><span>Tests in DevLaunch</span></div>
     <div><b>47</b><span>Merged PRs on ARC</span></div>
-    <div><b>5</b><span>Featured projects</span></div>
+    <div><b>6</b><span>Projects built</span></div>
     <div><b>2</b><span>Internships</span></div>''')
 
 # ------------------------------------------------------------ 02 · work
 sub('<span class="k"><b>02</b> — Still Gardens</span><span class="rule"></span><span class="k jp">庭園</span>',
-    '<span class="k"><b>02</b> — Selected work</span><span class="rule"></span><span class="k">Projects</span>')
+    '<span class="k"><b>02</b> — Projects</span><span class="rule"></span><span class="k">Featured &amp; more</span>')
 CARDS = [
     ("Approach", "参道", "The long climb", "01 / 03",
      "https://github.com/chinthanshetty07/Dev-launch", "DevLaunch", "TS",
@@ -174,15 +174,10 @@ for i, (ob, ojp, ometa, opos, href, name, tag, meta, who) in enumerate(CARDS):
     sub(f'<div class="card-meta"><span>{ometa}</span><span>{opos}</span></div>\n    </article>',
         f'<div class="card-meta"><span>{meta}</span><span>0{i + 1} / 03</span></div>\n    </a>')
 
-# ------------------------------------------------------- 03 · experience
-sub('<span class="k"><b>03</b> — Sacred Craft</span><span class="rule"></span><span class="k jp">手業</span>',
-    '<span class="k"><b>03</b> — Experience</span><span class="rule"></span><span class="k">Work &amp; more</span>')
-sub('<h2 class="display h-sec" data-rv="up">Five chapters. Ninety minutes. One quiet mind.</h2>',
-    '<h2 class="display h-sec" data-rv="up">Where I’ve worked, and what else I’ve built.</h2>')
-sub('''<p class="body-lg" data-rv="up">Each chapter is a walk, not a lecture. You arrive at the gate, climb the
-      steps, sit with the lantern, and leave with one thing worth keeping.</p>''',
-    '''<p class="body-lg" data-rv="up">Two internships, and the projects behind the featured three. Full case
-      studies, architecture notes and code excerpts are in the <a href="''' + CLASSIC + '" ' + EXT + ''' data-cursor style="text-decoration:underline;text-underline-offset:4px">detailed portfolio</a>.</p>''')
+# ------------------------------------------------------- 02b · all other projects
+# The three gallery cards above are the featured projects; the rest of the
+# projects sit directly under them so "Projects" is one section. Experience
+# below is then jobs only.
 LES_OLD = [
     ("The Hidden Gate", "山門", "Why a gate is a sentence, and what you agree to when you walk under one.", "14 min"),
     ("Borrowed Scenery", "借景", "Shakkei: composing with a mountain you will never own.", "18 min"),
@@ -190,13 +185,15 @@ LES_OLD = [
     ("Lantern Light", "灯籠", "How a single ember decides the scale of everything around it.", "17 min"),
     ("The Vermilion Moon", "朱月", "Why the moon burns red over the valley, and what the garden does with it.", "22 min"),
 ]
-LES_NEW = [
-    (None, "Software Engineer Intern", "PESU Venture Labs",
+JOBS = [
+    ("Software Engineer Intern", "PESU Venture Labs",
      "Build responsive full-stack features in React and Node.js; test, debug and ship improvements with the venture team.",
      "Aug 2026 – now"),
-    (None, "UX &amp; Game Design Intern", "Edutainer",
+    ("UX &amp; Game Design Intern", "Edutainer",
      "Designed UI/UX concepts and interactive elements for live projects; wireframing and usability analysis.",
      "Jan – Jun 2026"),
+]
+MORE_PROJECTS = [
     ("https://github.com/chinthanshetty07/Prompt-Engine", "Prompt Engine", "React · Node",
      "Rewrites rough coding requests into precise prompts: validation, a scope check before any model call, MongoDB history.",
      "2026"),
@@ -207,21 +204,53 @@ LES_NEW = [
      "On-device TinyML anomaly and disease detection on ESP32, results sent over LoRa to an offline dashboard.",
      "Dec 2025"),
 ]
-for i, ((oh, ojp, op, ot), (href, h, sub_, p, t)) in enumerate(zip(LES_OLD, LES_NEW)):
-    tag_open = f'<a class="les" href="{href}" {EXT} data-les="{i}" data-cursor>' if href else f'<div class="les" data-les="{i}" data-cursor>'
-    tag_close = '</a>' if href else '</div>'
-    sub(f'''    <div class="les" data-les="{i}" data-cursor>
+SUBSTYLE = 'style="font-family:inherit;letter-spacing:.08em"'
+
+
+def les_old(i: int) -> str:
+    oh, ojp, op, ot = LES_OLD[i]
+    return f"""    <div class="les" data-les="{i}" data-cursor>
       <span class="k">0{i + 1}</span>
       <h3>{oh}<em class="jp">{ojp}</em></h3>
       <p>{op}</p>
       <span class="t">{ot}</span><i class="bar"></i>
-    </div>''',
-        f'''    {tag_open}
-      <span class="k">0{i + 1}</span>
-      <h3>{h}<em style="font-family:inherit;letter-spacing:.08em">{sub_}</em></h3>
+    </div>"""
+
+
+def les_new(i: int, num: int, href: str | None, h: str, sub_: str, p: str, t: str) -> str:
+    tag_open = f'<a class="les" href="{href}" {EXT} data-les="{i}" data-cursor>' if href else f'<div class="les" data-les="{i}" data-cursor>'
+    tag_close = "</a>" if href else "</div>"
+    return f"""    {tag_open}
+      <span class="k">0{num}</span>
+      <h3>{h}<em {SUBSTYLE}>{sub_}</em></h3>
       <p>{p}</p>
       <span class="t">{t}</span><i class="bar"></i>
-    {tag_close}''')
+    {tag_close}"""
+
+
+more_rows = "\n".join(les_new(i + 2, i + 1, *m) for i, m in enumerate(MORE_PROJECTS))
+sub('<span>03 / 03</span></div>\n    </a>\n  </div>\n</section>',
+    '<span>03 / 03</span></div>\n    </a>\n  </div>\n'
+    '  <div class="more-head" data-rv="up">\n'
+    '    <h3 class="more-title">More projects</h3>\n'
+    '    <p class="more-note">Case studies, architecture notes and code excerpts for the featured work are in the\n'
+    '      <a href="' + CLASSIC + '" ' + EXT + ' data-cursor>detailed portfolio</a>.</p>\n'
+    '  </div>\n'
+    '  <div class="cur" id="more-projects">\n' + more_rows + '\n  </div>\n</section>')
+
+# ------------------------------------------------------- 03 · experience
+sub('<span class="k"><b>03</b> — Sacred Craft</span><span class="rule"></span><span class="k jp">手業</span>',
+    '<span class="k"><b>03</b> — Experience</span><span class="rule"></span><span class="k">Work experience</span>')
+sub('<h2 class="display h-sec" data-rv="up">Five chapters. Ninety minutes. One quiet mind.</h2>',
+    '<h2 class="display h-sec" data-rv="up">Where I’ve worked.</h2>')
+sub('''<p class="body-lg" data-rv="up">Each chapter is a walk, not a lecture. You arrive at the gate, climb the
+      steps, sit with the lantern, and leave with one thing worth keeping.</p>''',
+    '<p class="body-lg" data-rv="up">Two internships: shipping full-stack features in React and Node.js, and '
+    'designing interfaces and interactions for live products.</p>')
+for i, (h, sub_, p, t) in enumerate(JOBS):
+    sub(les_old(i), les_new(i, i + 1, None, h, sub_, p, t))
+for i in range(len(JOBS), len(LES_OLD)):
+    sub(les_old(i) + "\n", "")
 
 # ------------------------------------------------------------ 04 · contact
 sub('<div class="eyebrow" data-rv="fade">Chapter 04 — Afterlight</div>',
@@ -353,6 +382,22 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
 .me-about{ width:min(220px,56vw); aspect-ratio:4/5; border-radius:14px; overflow:hidden; margin-bottom:26px; }
 .me-about img{ width:100%; height:100%; object-fit:cover; object-position:50% 26%; }
 @media (max-width:820px){ .hero-top::before{ inset:-30px -24px -40px; } }
+/* projects: the featured gallery is followed by the remaining projects in one list */
+.more-head{ margin:clamp(56px,9vh,110px) 0 clamp(18px,3vh,32px); display:flex; justify-content:space-between;
+  align-items:baseline; gap:12px 32px; flex-wrap:wrap; }
+.more-title{ margin:0; font-size:clamp(20px,2vw,30px); font-weight:400; letter-spacing:-.005em; }
+.more-note{ margin:0; font-size:13px; line-height:1.6; color:#b8c1bb; max-width:48ch; }
+.more-note a{ text-decoration:underline; text-underline-offset:4px; }
+body[data-layout-curriculum="b"] #more-projects .les:nth-child(n){ grid-column:span 2; }
+body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:span 3; }
+@media (max-width:1080px){
+  body[data-layout-curriculum="b"] #more-projects .les:nth-child(n){ grid-column:span 3; }
+  body[data-layout-curriculum="b"] #more-projects .les:last-child{ grid-column:span 6; }
+}
+@media (max-width:820px){
+  body[data-layout-curriculum="b"] #more-projects .les:nth-child(n),
+  body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:auto; }
+}
 </style>
 """
 sub("</style>\n</head>", "</style>\n" + READABILITY_CSS + "</head>")

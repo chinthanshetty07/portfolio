@@ -931,6 +931,22 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
 .me-about{ width:min(220px,56vw); aspect-ratio:4/5; border-radius:14px; overflow:hidden; margin-bottom:26px; }
 .me-about img{ width:100%; height:100%; object-fit:cover; object-position:50% 26%; }
 @media (max-width:820px){ .hero-top::before{ inset:-30px -24px -40px; } }
+/* projects: the featured gallery is followed by the remaining projects in one list */
+.more-head{ margin:clamp(56px,9vh,110px) 0 clamp(18px,3vh,32px); display:flex; justify-content:space-between;
+  align-items:baseline; gap:12px 32px; flex-wrap:wrap; }
+.more-title{ margin:0; font-size:clamp(20px,2vw,30px); font-weight:400; letter-spacing:-.005em; }
+.more-note{ margin:0; font-size:13px; line-height:1.6; color:#b8c1bb; max-width:48ch; }
+.more-note a{ text-decoration:underline; text-underline-offset:4px; }
+body[data-layout-curriculum="b"] #more-projects .les:nth-child(n){ grid-column:span 2; }
+body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:span 3; }
+@media (max-width:1080px){
+  body[data-layout-curriculum="b"] #more-projects .les:nth-child(n){ grid-column:span 3; }
+  body[data-layout-curriculum="b"] #more-projects .les:last-child{ grid-column:span 6; }
+}
+@media (max-width:820px){
+  body[data-layout-curriculum="b"] #more-projects .les:nth-child(n),
+  body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:auto; }
+}
 </style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
@@ -1064,7 +1080,7 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
   <div class="gate-stats" data-rv="up">
     <div><b>~1,360</b><span>Tests in DevLaunch</span></div>
     <div><b>47</b><span>Merged PRs on ARC</span></div>
-    <div><b>5</b><span>Featured projects</span></div>
+    <div><b>6</b><span>Projects built</span></div>
     <div><b>2</b><span>Internships</span></div>
   </div>
 </section>
@@ -1087,7 +1103,7 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
     </span>
   </div>
   <div class="sec-head" data-rv="fade">
-    <span class="k"><b>02</b> — Selected work</span><span class="rule"></span><span class="k">Projects</span>
+    <span class="k"><b>02</b> — Projects</span><span class="rule"></span><span class="k">Featured &amp; more</span>
   </div>
   <div class="cards" id="cards">
     <a class="card" href="https://github.com/chinthanshetty07/Dev-launch" target="_blank" rel="noopener noreferrer" data-rv="up" data-view="0" data-cursor aria-label="DevLaunch: Public repo → running app in hardened Docker">
@@ -1115,6 +1131,31 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
       <div class="card-meta"><span>Restock alerts that never cry wolf</span><span>03 / 03</span></div>
     </a>
   </div>
+  <div class="more-head" data-rv="up">
+    <h3 class="more-title">More projects</h3>
+    <p class="more-note">Case studies, architecture notes and code excerpts for the featured work are in the
+      <a href="/classic" target="_blank" rel="noopener noreferrer" data-cursor>detailed portfolio</a>.</p>
+  </div>
+  <div class="cur" id="more-projects">
+    <a class="les" href="https://github.com/chinthanshetty07/Prompt-Engine" target="_blank" rel="noopener noreferrer" data-les="2" data-cursor>
+      <span class="k">01</span>
+      <h3>Prompt Engine<em style="font-family:inherit;letter-spacing:.08em">React · Node</em></h3>
+      <p>Rewrites rough coding requests into precise prompts: validation, a scope check before any model call, MongoDB history.</p>
+      <span class="t">2026</span><i class="bar"></i>
+    </a>
+    <a class="les" href="https://github.com/chinthanshetty07/Agent-reliability-benchmark" target="_blank" rel="noopener noreferrer" data-les="3" data-cursor>
+      <span class="k">02</span>
+      <h3>Reliability Benchmark<em style="font-family:inherit;letter-spacing:.08em">Python</em></h3>
+      <p>Strict, repeatable grading of a local LLM on finance tasks, with atomic result writes and a Streamlit dashboard.</p>
+      <span class="t">2026</span><i class="bar"></i>
+    </a>
+    <div class="les" data-les="4" data-cursor>
+      <span class="k">03</span>
+      <h3>Smart Agriculture<em style="font-family:inherit;letter-spacing:.08em">ESP32 · LoRa</em></h3>
+      <p>On-device TinyML anomaly and disease detection on ESP32, results sent over LoRa to an offline dashboard.</p>
+      <span class="t">Dec 2025</span><i class="bar"></i>
+    </div>
+  </div>
 </section>
 
 <!-- ============================================================ chapter III -->
@@ -1132,12 +1173,11 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
     </span>
   </div>
   <div class="sec-head" data-rv="fade">
-    <span class="k"><b>03</b> — Experience</span><span class="rule"></span><span class="k">Work &amp; more</span>
+    <span class="k"><b>03</b> — Experience</span><span class="rule"></span><span class="k">Work experience</span>
   </div>
   <div class="cur-head">
-    <h2 class="display h-sec" data-rv="up">Where I’ve worked, and what else I’ve built.</h2>
-    <p class="body-lg" data-rv="up">Two internships, and the projects behind the featured three. Full case
-      studies, architecture notes and code excerpts are in the <a href="/classic" target="_blank" rel="noopener noreferrer" data-cursor style="text-decoration:underline;text-underline-offset:4px">detailed portfolio</a>.</p>
+    <h2 class="display h-sec" data-rv="up">Where I’ve worked.</h2>
+    <p class="body-lg" data-rv="up">Two internships: shipping full-stack features in React and Node.js, and designing interfaces and interactions for live products.</p>
   </div>
   <div class="cur" id="cur">
     <div class="les" data-les="0" data-cursor>
@@ -1151,24 +1191,6 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
       <h3>UX &amp; Game Design Intern<em style="font-family:inherit;letter-spacing:.08em">Edutainer</em></h3>
       <p>Designed UI/UX concepts and interactive elements for live projects; wireframing and usability analysis.</p>
       <span class="t">Jan – Jun 2026</span><i class="bar"></i>
-    </div>
-    <a class="les" href="https://github.com/chinthanshetty07/Prompt-Engine" target="_blank" rel="noopener noreferrer" data-les="2" data-cursor>
-      <span class="k">03</span>
-      <h3>Prompt Engine<em style="font-family:inherit;letter-spacing:.08em">React · Node</em></h3>
-      <p>Rewrites rough coding requests into precise prompts: validation, a scope check before any model call, MongoDB history.</p>
-      <span class="t">2026</span><i class="bar"></i>
-    </a>
-    <a class="les" href="https://github.com/chinthanshetty07/Agent-reliability-benchmark" target="_blank" rel="noopener noreferrer" data-les="3" data-cursor>
-      <span class="k">04</span>
-      <h3>Reliability Benchmark<em style="font-family:inherit;letter-spacing:.08em">Python</em></h3>
-      <p>Strict, repeatable grading of a local LLM on finance tasks, with atomic result writes and a Streamlit dashboard.</p>
-      <span class="t">2026</span><i class="bar"></i>
-    </a>
-    <div class="les" data-les="4" data-cursor>
-      <span class="k">05</span>
-      <h3>Smart Agriculture<em style="font-family:inherit;letter-spacing:.08em">ESP32 · LoRa</em></h3>
-      <p>On-device TinyML anomaly and disease detection on ESP32, results sent over LoRa to an offline dashboard.</p>
-      <span class="t">Dec 2025</span><i class="bar"></i>
     </div>
   </div>
 </section>

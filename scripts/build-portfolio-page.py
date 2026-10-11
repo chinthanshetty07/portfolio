@@ -219,11 +219,11 @@ JOBS = [
     ("Software Engineer Intern", "PESU Venture Labs", "Full stack · Bangalore",
      ["Build responsive full-stack features in React and Node.js, connecting user interfaces to backend APIs.",
       "Work with the venture team to test, debug and ship product improvements across frontend and backend workflows."],
-     ["React", "Node.js", "REST APIs"], "Aug 2026 – Present"),
+     ["React", "Node.js", "REST APIs"], "Aug 2026 – Present", ("/logo-pesu-venture-labs.png", 45, 56)),
     ("UX &amp; Game Design Intern", "Edutainer (PAT Technologies Pvt. Ltd.)", "UX &amp; game design · Bengaluru",
      ["Designed UI/UX concepts and interactive elements for live projects, working with mentors and the team remotely.",
       "Practised wireframing, usability analysis and interaction design; designed QuestVerse, a game-based learning app, in Figma."],
-     ["Figma", "Wireframing", "Usability analysis"], "Jan 2026 – Jun 2026"),
+     ["Figma", "Wireframing", "Usability analysis"], "Jan 2026 – Jun 2026", ("/logo-edutainer.png", 56, 56)),
 ]
 
 
@@ -237,10 +237,14 @@ def les_old(i: int) -> str:
     </div>"""
 
 
-def job(i: int, role: str, org: str, where: str, pts: list[str], stack: list[str], period: str) -> str:
+def job(i: int, role: str, org: str, where: str, pts: list[str], stack: list[str], period: str,
+        logo: tuple[str, int, int]) -> str:
     lis = "".join(f"<li>{p}</li>" for p in pts)
     chips = "".join(f"<span>{c}</span>" for c in stack)
+    src, lw, lh = logo
+    org_plain = org.split(" (")[0]
     return f"""    <div class="les job" data-les="{i}" data-cursor>
+      <img class="job-logo" src="{src}" alt="{org_plain} logo" width="{lw}" height="{lh}" loading="lazy" decoding="async">
       <span class="k">0{i + 1}</span>
       <h3>{role}<em style="font-family:inherit;letter-spacing:.08em">{org}</em></h3>
       <span class="job-where">{where}</span>
@@ -415,6 +419,8 @@ body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:span 3; }
 @media (max-width:820px){ body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:auto; } }
 .job{ gap:12px !important; }
 .job h3 em{ display:block; margin:8px 0 0 !important; font-size:.62em !important; }
+.job-logo{ position:absolute; top:22px; right:22px; height:52px; width:auto; opacity:.95; }
+.job h3{ padding-right:76px; }
 .job-where{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#a7b1aa; }
 .job-pts{ margin:4px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
 .job-pts li{ position:relative; padding-left:16px; font-size:14px; line-height:1.65; color:#cdd5cf; max-width:56ch; }

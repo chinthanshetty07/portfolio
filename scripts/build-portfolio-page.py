@@ -168,7 +168,7 @@ CARDS = [
 ]
 for i, (ob, ojp, ometa, opos, href, name, tag, meta, who) in enumerate(CARDS):
     sub(f'    <article class="card" data-rv="up" data-view="{i}" data-cursor>',
-        f'    <a class="card" href="{href}" {EXT} data-rv="up" data-view="{i}" data-cursor aria-label="{name}: {meta}">')
+        f'    <a class="card" href="{href}" {EXT} data-rv="up" data-cursor aria-label="{name}: {meta}">')
     sub(f'<div class="card-lab"><b>{ob}</b><span class="jp">{ojp}</span></div>',
         f'<div class="card-lab"><b>{name}</b><span class="jp">{who}</span></div>')
     sub(f'<div class="card-meta"><span>{ometa}</span><span>{opos}</span></div>\n    </article>',
@@ -401,12 +401,13 @@ body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto;
 .card--static{ cursor:default; }
 .card-meta{ gap:12px; }
 .card-meta span:last-child{ white-space:nowrap; }
-.card:nth-child(4) .card-fr{ background:linear-gradient(180deg,rgba(3,6,9,.05) 36%,rgba(3,6,9,.76) 100%),
-  url('secret-pathways-assets/generated/kage-sanmon-preview.webp') center / cover no-repeat; }
-.card:nth-child(5) .card-fr{ background:linear-gradient(180deg,rgba(3,6,9,.05) 36%,rgba(3,6,9,.76) 100%),
-  url('secret-pathways-assets/generated/kage-approach.webp') 20% 60% / 220% auto no-repeat; }
-.card:nth-child(6) .card-fr{ background:linear-gradient(180deg,rgba(3,6,9,.05) 36%,rgba(3,6,9,.76) 100%),
-  url('secret-pathways-assets/generated/kage-moonwater.webp') 80% 40% / 220% auto no-repeat; }
+.card:nth-child(1) .card-fr{ background:url('secret-pathways-assets/generated/project-devlaunch.webp') center / cover no-repeat; }
+.card:nth-child(2) .card-fr{ background:url('secret-pathways-assets/generated/project-arc.webp') center / cover no-repeat; }
+.card:nth-child(3) .card-fr{ background:url('secret-pathways-assets/generated/project-stockwatch.webp') center / cover no-repeat; }
+.card:nth-child(4) .card-fr{ background:url('secret-pathways-assets/generated/project-prompt-engine.webp') center / cover no-repeat; }
+.card:nth-child(5) .card-fr{ background:url('secret-pathways-assets/generated/project-benchmark.webp') center / cover no-repeat; }
+.card:nth-child(6) .card-fr{ background:url('secret-pathways-assets/generated/project-agriculture.webp') center / cover no-repeat; }
+#cards .glow{ display:none; }
 @media (max-width:1080px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:820px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:1fr; } }
 /* experience: two wide plates with the full write-up */

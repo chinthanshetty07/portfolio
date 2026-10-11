@@ -56,6 +56,8 @@ sub("'600 ' + SZ + 'px Wordmark, sans-serif'", "'700 ' + SZ + 'px Onest, sans-se
 sub("document.fonts.load('600 320px Wordmark')", "document.fonts.load('700 320px Onest')")
 sub("font-family:'Wordmark','Onest',sans-serif; font-weight:600; font-size:21.4vw;",
     "font-family:'Onest',sans-serif; font-weight:700; font-size:11.2vw;")
+# keep the whole name inside the frame (the original fit put the last letter on the edge)
+sub("const fill = narrow ? .96 : 1.00;", "const fill = narrow ? .88 : .9;")
 sub('<div class="word-fb" aria-hidden="true">KAGE</div>',
     '<div class="word-fb" aria-hidden="true">CHINTHAN</div>')
 

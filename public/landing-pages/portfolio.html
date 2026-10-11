@@ -887,7 +887,10 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 /* the 3D world recedes behind a flat dark veil. A CSS filter on the canvas
    would do the same visually but costs a full-screen pass every frame
    (measured: 60 fps -> 30 fps), so the veil is a plain fixed layer. */
-body::before{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background:rgba(4,6,9,.55); }
+body::before{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background:rgba(4,6,9,.55);
+  transition:opacity .9s var(--ease); }
+/* from the second slide on, let the animated scene show through a little more */
+body.past-hero::before{ opacity:.66; }
 /* the foreground plants are placed in front of the reading; remove them */
 .fg, #fg-sky{ display:none !important; }
 #grain{ opacity:.03; }
@@ -895,8 +898,8 @@ body::before{ content:''; position:fixed; inset:0; z-index:1; pointer-events:non
 .cur-dot{ display:none !important; }
 #vignette{ background:radial-gradient(120% 92% at 50% 42%, rgba(2,4,6,.18) 32%, rgba(2,4,6,.72) 100%); }
 /* deeper section scrims so every block of copy sits on near-black */
-.sec::before{ background:radial-gradient(125% 72% at 34% 50%, rgba(4,7,10,.94), rgba(4,7,10,.82) 46%, rgba(4,7,10,.48) 78%, rgba(4,7,10,0)); }
-#pathways::before{ background:radial-gradient(115% 70% at 50% 50%, rgba(4,7,10,.88), rgba(4,7,10,.66) 55%, rgba(4,7,10,0)); }
+.sec::before{ background:radial-gradient(125% 72% at 34% 50%, rgba(4,7,10,.84), rgba(4,7,10,.70) 46%, rgba(4,7,10,.38) 78%, rgba(4,7,10,0)); }
+#pathways::before{ background:radial-gradient(115% 70% at 50% 50%, rgba(4,7,10,.78), rgba(4,7,10,.54) 55%, rgba(4,7,10,0)); }
 #eternity::before{ background:radial-gradient(90% 64% at 50% 46%, rgba(4,7,10,.82), rgba(4,7,10,.86) 56%, rgba(4,7,10,.94) 82%, rgba(4,7,10,0)); }
 /* the hero copy gets its own soft backing */
 .hero-top::before{ content:''; position:absolute; inset:-40px -90px -60px -80px; z-index:-1; pointer-events:none;
@@ -4963,6 +4966,14 @@ function start() {
 
 if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(boot, 0);
 else addEventListener('DOMContentLoaded', boot);
+})();
+</script>
+<script id="past-hero">
+(() => {
+  const hero = document.getElementById('hero');
+  if (!hero || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([e]) => document.body.classList.toggle('past-hero', !e.isIntersecting),
+    { threshold: 0.6 }).observe(hero);
 })();
 </script>
 <script id="cta-magnet">

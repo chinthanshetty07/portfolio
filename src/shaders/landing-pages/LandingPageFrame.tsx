@@ -40,8 +40,13 @@ export type LandingPageProps = Omit<
   "sourceUrl" | "title" | "customization" | "backgroundCanvasSelector" | "backgroundVisualSelector"
 >;
 
-const URL_FRAME_SANDBOX = "allow-downloads allow-forms allow-modals allow-popups allow-same-origin allow-scripts";
-const SRCDOC_FRAME_SANDBOX = "allow-downloads allow-forms allow-modals allow-popups allow-scripts";
+// New tabs opened from the page (LinkedIn, GitHub, the resume PDF) must escape the
+// sandbox: a sandboxed popup can't render Chrome's PDF viewer and breaks most
+// third-party sites. Top navigation is allowed only on a real click.
+const URL_FRAME_SANDBOX =
+  "allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation";
+const SRCDOC_FRAME_SANDBOX =
+  "allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-top-navigation-by-user-activation";
 
 const BACKGROUND_PRESENTATION_STYLE_ID = "threeui-background-presentation";
 

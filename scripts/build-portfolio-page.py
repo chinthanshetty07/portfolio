@@ -172,12 +172,41 @@ for i, (ob, ojp, ometa, opos, href, name, tag, meta, who) in enumerate(CARDS):
     sub(f'<div class="card-lab"><b>{ob}</b><span class="jp">{ojp}</span></div>',
         f'<div class="card-lab"><b>{name}</b><span class="jp">{who}</span></div>')
     sub(f'<div class="card-meta"><span>{ometa}</span><span>{opos}</span></div>\n    </article>',
-        f'<div class="card-meta"><span>{meta}</span><span>0{i + 1} / 03</span></div>\n    </a>')
+        f'<div class="card-meta"><span>{meta}</span><span>0{i + 1} / 06</span></div>\n    </a>')
 
-# ------------------------------------------------------- 02b · all other projects
-# The three gallery cards above are the featured projects; the rest of the
-# projects sit directly under them so "Projects" is one section. Experience
-# below is then jobs only.
+# ------------------------------------------------------- 02b · the other three projects
+# All six projects live in the one gallery: the first three keep their live 3D
+# viewports, the next three are plain still cards in the same grid.
+ARROW_SPAN = '<span class="card-ar">' + ARROW + '</span>'
+EXTRA_CARDS = [
+    ("https://github.com/chinthanshetty07/Prompt-Engine", "Prompt Engine", "React · Node",
+     "Turns rough requests into precise AI prompts", "04"),
+    ("https://github.com/chinthanshetty07/Agent-reliability-benchmark", "Reliability Benchmark", "Python",
+     "Strict, repeatable grading of a local LLM", "05"),
+    (None, "Smart Agriculture", "ESP32 · LoRa",
+     "On-device TinyML crop monitoring over LoRa", "06"),
+]
+
+
+def extra_card(href: str | None, name: str, tag: str, meta: str, num: str) -> str:
+    open_ = (f'<a class="card" href="{href}" {EXT} data-rv="up" data-cursor aria-label="{name}: {meta}">'
+             if href else f'<div class="card card--static" data-rv="up" aria-label="{name}: {meta}">')
+    close = "</a>" if href else "</div>"
+    arrow = ARROW_SPAN if href else ""
+    return f"""    {open_}
+      <div class="card-fr" data-frame>
+        {arrow}
+        <div class="card-lab"><b>{name}</b><span class="jp">{tag}</span></div>
+      </div>
+      <div class="card-meta"><span>{meta}</span><span>{num} / 06</span></div>
+    {close}
+"""
+
+
+sub('<span>03 / 06</span></div>\n    </a>\n  </div>\n</section>',
+    '<span>03 / 06</span></div>\n    </a>\n' + "".join(extra_card(*c) for c in EXTRA_CARDS) + '  </div>\n</section>')
+
+# ------------------------------------------------------- 03 · experience
 LES_OLD = [
     ("The Hidden Gate", "山門", "Why a gate is a sentence, and what you agree to when you walk under one.", "14 min"),
     ("Borrowed Scenery", "借景", "Shakkei: composing with a mountain you will never own.", "18 min"),
@@ -185,26 +214,17 @@ LES_OLD = [
     ("Lantern Light", "灯籠", "How a single ember decides the scale of everything around it.", "17 min"),
     ("The Vermilion Moon", "朱月", "Why the moon burns red over the valley, and what the garden does with it.", "22 min"),
 ]
+# (role, organisation, place line, bullet points, stack, period): same facts as src/data/profile.ts
 JOBS = [
-    ("Software Engineer Intern", "PESU Venture Labs",
-     "Build responsive full-stack features in React and Node.js; test, debug and ship improvements with the venture team.",
-     "Aug 2026 – now"),
-    ("UX &amp; Game Design Intern", "Edutainer",
-     "Designed UI/UX concepts and interactive elements for live projects; wireframing and usability analysis.",
-     "Jan – Jun 2026"),
+    ("Software Engineer Intern", "PESU Venture Labs", "Full stack · Bangalore",
+     ["Build responsive full-stack features in React and Node.js, connecting user interfaces to backend APIs.",
+      "Work with the venture team to test, debug and ship product improvements across frontend and backend workflows."],
+     ["React", "Node.js", "REST APIs"], "Aug 2026 – Present"),
+    ("UX &amp; Game Design Intern", "Edutainer (PAT Technologies Pvt. Ltd.)", "UX &amp; game design · Bengaluru",
+     ["Designed UI/UX concepts and interactive elements for live projects, working with mentors and the team remotely.",
+      "Practised wireframing, usability analysis and interaction design; designed QuestVerse, a game-based learning app, in Figma."],
+     ["Figma", "Wireframing", "Usability analysis"], "Jan 2026 – Jun 2026"),
 ]
-MORE_PROJECTS = [
-    ("https://github.com/chinthanshetty07/Prompt-Engine", "Prompt Engine", "React · Node",
-     "Rewrites rough coding requests into precise prompts: validation, a scope check before any model call, MongoDB history.",
-     "2026"),
-    ("https://github.com/chinthanshetty07/Agent-reliability-benchmark", "Reliability Benchmark", "Python",
-     "Strict, repeatable grading of a local LLM on finance tasks, with atomic result writes and a Streamlit dashboard.",
-     "2026"),
-    (None, "Smart Agriculture", "ESP32 · LoRa",
-     "On-device TinyML anomaly and disease detection on ESP32, results sent over LoRa to an offline dashboard.",
-     "Dec 2025"),
-]
-SUBSTYLE = 'style="font-family:inherit;letter-spacing:.08em"'
 
 
 def les_old(i: int) -> str:
@@ -217,28 +237,19 @@ def les_old(i: int) -> str:
     </div>"""
 
 
-def les_new(i: int, num: int, href: str | None, h: str, sub_: str, p: str, t: str) -> str:
-    tag_open = f'<a class="les" href="{href}" {EXT} data-les="{i}" data-cursor>' if href else f'<div class="les" data-les="{i}" data-cursor>'
-    tag_close = "</a>" if href else "</div>"
-    return f"""    {tag_open}
-      <span class="k">0{num}</span>
-      <h3>{h}<em {SUBSTYLE}>{sub_}</em></h3>
-      <p>{p}</p>
-      <span class="t">{t}</span><i class="bar"></i>
-    {tag_close}"""
+def job(i: int, role: str, org: str, where: str, pts: list[str], stack: list[str], period: str) -> str:
+    lis = "".join(f"<li>{p}</li>" for p in pts)
+    chips = "".join(f"<span>{c}</span>" for c in stack)
+    return f"""    <div class="les job" data-les="{i}" data-cursor>
+      <span class="k">0{i + 1}</span>
+      <h3>{role}<em style="font-family:inherit;letter-spacing:.08em">{org}</em></h3>
+      <span class="job-where">{where}</span>
+      <ul class="job-pts">{lis}</ul>
+      <span class="job-stack">{chips}</span>
+      <span class="t">{period}</span><i class="bar"></i>
+    </div>"""
 
 
-more_rows = "\n".join(les_new(i + 2, i + 1, *m) for i, m in enumerate(MORE_PROJECTS))
-sub('<span>03 / 03</span></div>\n    </a>\n  </div>\n</section>',
-    '<span>03 / 03</span></div>\n    </a>\n  </div>\n'
-    '  <div class="more-head" data-rv="up">\n'
-    '    <h3 class="more-title">More projects</h3>\n'
-    '    <p class="more-note">Case studies, architecture notes and code excerpts for the featured work are in the\n'
-    '      <a href="' + CLASSIC + '" ' + EXT + ' data-cursor>detailed portfolio</a>.</p>\n'
-    '  </div>\n'
-    '  <div class="cur" id="more-projects">\n' + more_rows + '\n  </div>\n</section>')
-
-# ------------------------------------------------------- 03 · experience
 sub('<span class="k"><b>03</b> — Sacred Craft</span><span class="rule"></span><span class="k jp">手業</span>',
     '<span class="k"><b>03</b> — Experience</span><span class="rule"></span><span class="k">Work experience</span>')
 sub('<h2 class="display h-sec" data-rv="up">Five chapters. Ninety minutes. One quiet mind.</h2>',
@@ -246,9 +257,10 @@ sub('<h2 class="display h-sec" data-rv="up">Five chapters. Ninety minutes. One q
 sub('''<p class="body-lg" data-rv="up">Each chapter is a walk, not a lecture. You arrive at the gate, climb the
       steps, sit with the lantern, and leave with one thing worth keeping.</p>''',
     '<p class="body-lg" data-rv="up">Two internships: shipping full-stack features in React and Node.js, and '
-    'designing interfaces and interactions for live products.</p>')
-for i, (h, sub_, p, t) in enumerate(JOBS):
-    sub(les_old(i), les_new(i, i + 1, None, h, sub_, p, t))
+    'designing interfaces and interactions for live products. Case studies for the featured projects are in the '
+    '<a href="' + CLASSIC + '" ' + EXT + ' data-cursor style="text-decoration:underline;text-underline-offset:4px">detailed portfolio</a>.</p>')
+for i, j in enumerate(JOBS):
+    sub(les_old(i), job(i, *j))
 for i in range(len(JOBS), len(LES_OLD)):
     sub(les_old(i) + "\n", "")
 
@@ -382,22 +394,33 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
 .me-about{ width:min(220px,56vw); aspect-ratio:4/5; border-radius:14px; overflow:hidden; margin-bottom:26px; }
 .me-about img{ width:100%; height:100%; object-fit:cover; object-position:50% 26%; }
 @media (max-width:820px){ .hero-top::before{ inset:-30px -24px -40px; } }
-/* projects: the featured gallery is followed by the remaining projects in one list */
-.more-head{ margin:clamp(56px,9vh,110px) 0 clamp(18px,3vh,32px); display:flex; justify-content:space-between;
-  align-items:baseline; gap:12px 32px; flex-wrap:wrap; }
-.more-title{ margin:0; font-size:clamp(20px,2vw,30px); font-weight:400; letter-spacing:-.005em; }
-.more-note{ margin:0; font-size:13px; line-height:1.6; color:#b8c1bb; max-width:48ch; }
-.more-note a{ text-decoration:underline; text-underline-offset:4px; }
-body[data-layout-curriculum="b"] #more-projects .les:nth-child(n){ grid-column:span 2; }
+/* projects: all six in one gallery, three across (two across on tablets) */
+body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(12px,1.6vw,24px); }
+body[data-layout-gallery="b"] #cards .card:first-child{ grid-row:auto; }
+body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:4/5; min-height:0; }
+.card--static{ cursor:default; }
+.card-meta{ gap:12px; }
+.card-meta span:last-child{ white-space:nowrap; }
+.card:nth-child(4) .card-fr{ background:linear-gradient(180deg,rgba(3,6,9,.05) 36%,rgba(3,6,9,.76) 100%),
+  url('secret-pathways-assets/generated/kage-sanmon-preview.webp') center / cover no-repeat; }
+.card:nth-child(5) .card-fr{ background:linear-gradient(180deg,rgba(3,6,9,.05) 36%,rgba(3,6,9,.76) 100%),
+  url('secret-pathways-assets/generated/kage-approach.webp') 20% 60% / 220% auto no-repeat; }
+.card:nth-child(6) .card-fr{ background:linear-gradient(180deg,rgba(3,6,9,.05) 36%,rgba(3,6,9,.76) 100%),
+  url('secret-pathways-assets/generated/kage-moonwater.webp') 80% 40% / 220% auto no-repeat; }
+@media (max-width:1080px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:820px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:1fr; } }
+/* experience: two wide plates with the full write-up */
 body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:span 3; }
-@media (max-width:1080px){
-  body[data-layout-curriculum="b"] #more-projects .les:nth-child(n){ grid-column:span 3; }
-  body[data-layout-curriculum="b"] #more-projects .les:last-child{ grid-column:span 6; }
-}
-@media (max-width:820px){
-  body[data-layout-curriculum="b"] #more-projects .les:nth-child(n),
-  body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:auto; }
-}
+@media (max-width:820px){ body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:auto; } }
+.job{ gap:12px !important; }
+.job h3 em{ display:block; margin:8px 0 0 !important; font-size:.62em !important; }
+.job-where{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#a7b1aa; }
+.job-pts{ margin:4px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+.job-pts li{ position:relative; padding-left:16px; font-size:14px; line-height:1.65; color:#cdd5cf; max-width:56ch; }
+.job-pts li::before{ content:''; position:absolute; left:0; top:.8em; width:7px; height:1px; background:var(--vermilion); }
+.job-stack{ display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+.job-stack span{ font-size:11px; letter-spacing:.06em; padding:4px 10px; border:1px solid var(--line-soft); color:#b8c1bb; }
+.job .t{ margin-top:auto; }
 </style>
 """
 sub("</style>\n</head>", "</style>\n" + READABILITY_CSS + "</head>")

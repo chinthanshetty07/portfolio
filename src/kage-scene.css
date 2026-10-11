@@ -1,0 +1,3 @@
+/* The frame fills the viewport; the Kage document scrolls inside its own iframe. */
+html, body, #root { height: 100%; margin: 0; }
+.shader-frame { position: fixed; inset: 0; width: 100vw; height: 100dvh; }

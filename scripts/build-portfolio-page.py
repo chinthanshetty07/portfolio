@@ -365,14 +365,14 @@ READABILITY_CSS = """
 /* the 3D world recedes behind a flat dark veil. A CSS filter on the canvas
    would do the same visually but costs a full-screen pass every frame
    (measured: 60 fps -> 30 fps), so the veil is a plain fixed layer. */
-body::before{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background:rgba(0,0,0,.6);
+body::before{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background:rgba(0,0,0,.66); opacity:.8;
   transition:opacity .9s var(--ease); }
 /* from the second slide on, let the animated scene show through a little more */
-body.past-hero::before{ opacity:.42; }
+body.past-hero::before{ opacity:.52; }
 /* deeper black around the edges, so the scene reads as a lit window in the dark */
-body::after{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0;
+body::after{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.7;
   transition:opacity .9s var(--ease);
-  background:radial-gradient(95% 82% at 50% 46%, rgba(0,0,0,0) 36%, rgba(0,0,0,.55) 76%, rgba(0,0,0,.92) 100%); }
+  background:radial-gradient(95% 82% at 50% 46%, rgba(0,0,0,0) 30%, rgba(0,0,0,.62) 72%, rgba(0,0,0,.97) 100%); }
 body.past-hero::after{ opacity:1; }
 /* with a clearer scene behind it, keep the copy crisp */
 .sec .lead, .sec .body, .sec .body-lg, .sec .h-sec, .gate-stats div{ text-shadow:0 1px 20px rgba(3,6,8,.9), 0 0 3px rgba(3,6,8,.55); }
@@ -419,6 +419,22 @@ body[data-layout-closing="b"] .fin h2{ writing-mode:horizontal-tb; font-size:cla
 .me-about{ width:min(220px,56vw); aspect-ratio:4/5; border-radius:14px; overflow:hidden; margin-bottom:26px; }
 .me-about img{ width:100%; height:100%; object-fit:cover; object-position:50% 26%; }
 @media (max-width:820px){ .hero-top::before{ inset:-30px -24px -40px; } }
+/* type: Syne for display, Manrope for reading; every piece of text is pure white */
+:root{ --bone:#fff; --bone-dim:#fff; --muted:#fff; }
+body{ font-family:'Manrope','Onest',system-ui,-apple-system,'Helvetica Neue',sans-serif; color:#fff; }
+h1, h2, h3, .display, .more-title, .les h3, .card-lab b, .chip .tx b, .me-big b, .gate-stats div b, .brand-tx b, .cta{
+  font-family:'Syne','Onest',system-ui,sans-serif; }
+.display, .h-sec, h1{ font-weight:700; letter-spacing:-.025em; }
+.les h3, .more-title, .card-lab b, .me-big b{ font-weight:600; }
+/* Syne runs wide, so section headings step down a size to keep their line count */
+.display.h-sec{ font-size:clamp(28px,3.5vw,50px); line-height:1.04; }
+.hero-sub, .lead, .body, .body-lg, .gate-copy p, .les p, .chip p, .foot-brand p, .les .t, .card-meta,
+.gate-stats div span, .foot li a, .foot h4, .foot-base span, .job-where, .job-pts li, .job-stack span,
+.open-pill, .more-note, .me-big span, .sec-head .k, .hero-cue, .nav-link, .les .k, .les h3 em,
+.card-lab .jp, .eyebrow, .peek-cap i, .hero-side .v, .chip .num, .chip .tx b, .card-lab b, .gate-stats div b{ color:#fff !important; }
+.foot li a:hover{ text-decoration:underline; text-underline-offset:4px; }
+.job-stack span, .open-pill{ border-color:rgba(255,255,255,.28); }
+@media (max-width:820px){ body[data-layout-closing="b"] #eternity h2{ font-size:clamp(40px,12.5vw,110px); } }
 /* closing: a centred headline, an availability pill and two magnetic buttons */
 body[data-layout-closing="b"] #eternity{ display:flex; flex-direction:column; align-items:center; text-align:center; }
 body[data-layout-closing="b"] #eternity .eyebrow{ margin:0 0 22px; }
@@ -530,6 +546,12 @@ sub("const DPR_CAP      = qn('dpr', LOW ? 1.4 : 1.8);", "const DPR_CAP      = qn
 sub("function buildLeafFall() {\n  const N = LOW ? 110 : 260;", "function buildLeafFall() {\n  const N = LOW ? 24 : 60;")
 sub("_p.x += RIG.mx * 0.62 * par; _p.y += RIG.my * 0.34 * par;", "_p.x += RIG.mx * 0.18 * par; _p.y += RIG.my * 0.10 * par;")
 sub("_t.x -= RIG.mx * 0.20 * par; _t.y -= RIG.my * 0.12 * par;", "_t.x -= RIG.mx * 0.06 * par; _t.y -= RIG.my * 0.04 * par;")
+
+GFONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
+          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap">')
+sub('<link rel="stylesheet" href="secret-pathways-assets/fonts.css">',
+    '<link rel="stylesheet" href="secret-pathways-assets/fonts.css">' + GFONTS)
 
 # ---------------------------------------------------------------- portrait
 sub('''<section class="hero" id="hero" data-cam="0">

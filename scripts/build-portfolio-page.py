@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import hashlib
 import pathlib
+import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -526,6 +527,16 @@ body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:span 3; }
 .job .t{ margin-top:auto; }
 </style>
 """
+# Assets under secret-pathways-assets/ are cached for 30 days (vercel.json), so a redrawn
+# project picture under the same name never reaches returning visitors. Each picture URL
+# carries a hash of its bytes; a new picture means a new URL.
+def _versioned(m: re.Match) -> str:
+    rel = m.group(1)
+    digest = hashlib.sha256((ROOT / "public/landing-pages" / rel).read_bytes()).hexdigest()[:10]
+    return f"url('{rel}?v={digest}')"
+
+
+READABILITY_CSS = re.sub(r"url\('(secret-pathways-assets/generated/project-[a-z-]+\.webp)'\)", _versioned, READABILITY_CSS)
 sub("</style>\n</head>", "</style>\n" + READABILITY_CSS + "</head>")
 CTA_JS = r'''<script id="past-hero">
 (() => {

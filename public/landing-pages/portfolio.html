@@ -997,18 +997,18 @@ body[data-layout-closing="b"] #eternity .cta-row .cta{ margin:0; }
 @media (max-width:820px){ body[data-layout-closing="b"] #eternity h2{ font-size:clamp(52px,17vw,110px); } }
 @media (max-width:560px){ body[data-layout-closing="b"] #eternity .open-pill{ white-space:normal; text-align:left; letter-spacing:.14em; } }
 /* projects: all six in one gallery, three across (two across on tablets) */
-body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(12px,1.6vw,24px); }
+body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(10px,1.2vw,18px); }
 body[data-layout-gallery="b"] #cards .card:first-child{ grid-row:auto; }
-body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:4/5; min-height:0; }
+body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:4/3; min-height:0; }
 .card--static{ cursor:default; }
 .card-meta{ gap:12px; }
 .card-meta span:last-child{ white-space:nowrap; }
-.card:nth-child(1) .card-fr{ background:url('secret-pathways-assets/generated/project-devlaunch.webp') center / cover no-repeat; }
-.card:nth-child(2) .card-fr{ background:url('secret-pathways-assets/generated/project-arc.webp') center / cover no-repeat; }
-.card:nth-child(3) .card-fr{ background:url('secret-pathways-assets/generated/project-stockwatch.webp') center / cover no-repeat; }
-.card:nth-child(4) .card-fr{ background:url('secret-pathways-assets/generated/project-prompt-engine.webp') center / cover no-repeat; }
-.card:nth-child(5) .card-fr{ background:url('secret-pathways-assets/generated/project-benchmark.webp') center / cover no-repeat; }
-.card:nth-child(6) .card-fr{ background:url('secret-pathways-assets/generated/project-agriculture.webp') center / cover no-repeat; }
+.card:nth-child(1) .card-fr{ background:url('secret-pathways-assets/generated/project-prompt-engine.webp') 50% 33% / cover no-repeat; }
+.card:nth-child(2) .card-fr{ background:url('secret-pathways-assets/generated/project-devlaunch.webp') 50% 37% / cover no-repeat; }
+.card:nth-child(3) .card-fr{ background:url('secret-pathways-assets/generated/project-stockwatch.webp') 50% 22% / cover no-repeat; }
+.card:nth-child(4) .card-fr{ background:url('secret-pathways-assets/generated/project-arc.webp') 50% 24% / cover no-repeat; }
+.card:nth-child(5) .card-fr{ background:url('secret-pathways-assets/generated/project-benchmark.webp') 50% 53% / cover no-repeat; }
+.card:nth-child(6) .card-fr{ background:url('secret-pathways-assets/generated/project-agriculture.webp') 50% 55% / cover no-repeat; }
 #cards .glow{ display:none; }
 @media (max-width:1080px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:820px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:1fr; } }
@@ -1185,36 +1185,36 @@ body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:span 3; }
     <span class="k"><b>02</b> — Projects</span><span class="rule"></span><span class="k">Featured &amp; more</span>
   </div>
   <div class="cards" id="cards">
-    <a class="card" href="https://github.com/chinthanshetty07/Dev-launch" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor aria-label="DevLaunch: Public repo → running app in hardened Docker">
+    <a class="card" href="https://github.com/chinthanshetty07/Prompt-Engine" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor aria-label="Prompt Engine: Turns rough requests into precise AI prompts">
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
         <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
-        <div class="card-lab"><b>DevLaunch</b><span class="jp">Solo</span></div>
+        <div class="card-lab"><b>Prompt Engine</b><span class="jp">React · Node</span></div>
       </div>
-      <div class="card-meta"><span>Public repo → running app in hardened Docker</span><span>01 / 06</span></div>
+      <div class="card-meta"><span>Turns rough requests into precise AI prompts</span><span>01 / 06</span></div>
     </a>
-    <a class="card" href="https://github.com/arc-ive/arc" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor aria-label="ARC: Multi-tenant AI platform: RAG, agents, approvals">
+    <a class="card" href="https://github.com/chinthanshetty07/Dev-launch" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor aria-label="DevLaunch: Public repo → running app in hardened Docker">
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
         <i class="glow glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
-        <div class="card-lab"><b>ARC</b><span class="jp">Team</span></div>
+        <div class="card-lab"><b>DevLaunch</b><span class="jp">TypeScript · Docker</span></div>
       </div>
-      <div class="card-meta"><span>Multi-tenant AI platform: RAG, agents, approvals</span><span>02 / 06</span></div>
+      <div class="card-meta"><span>Public repo → running app in hardened Docker</span><span>02 / 06</span></div>
     </a>
     <a class="card" href="/classic#stockwatch" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor aria-label="Stock-Watch: Restock alerts that never cry wolf">
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
         <i class="glow" style="--gx:48.0%; --gy:16.8%; --gr:20%; --gt:7.3s; --gt2:11.2s; --gc1:rgba(255,138,104,.52); --gc2:rgba(208,54,36,.24)"></i>
-        <div class="card-lab"><b>Stock-Watch</b><span class="jp">Solo</span></div>
+        <div class="card-lab"><b>Stock-Watch</b><span class="jp">Python</span></div>
       </div>
       <div class="card-meta"><span>Restock alerts that never cry wolf</span><span>03 / 06</span></div>
     </a>
-    <a class="card" href="https://github.com/chinthanshetty07/Prompt-Engine" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor aria-label="Prompt Engine: Turns rough requests into precise AI prompts">
+    <a class="card" href="https://github.com/arc-ive/arc" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor aria-label="ARC: Multi-tenant AI platform: RAG, agents, approvals">
       <div class="card-fr" data-frame>
         <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <div class="card-lab"><b>Prompt Engine</b><span class="jp">React · Node</span></div>
+        <div class="card-lab"><b>ARC</b><span class="jp">Python · FastAPI</span></div>
       </div>
-      <div class="card-meta"><span>Turns rough requests into precise AI prompts</span><span>04 / 06</span></div>
+      <div class="card-meta"><span>Multi-tenant AI platform: RAG, agents, approvals</span><span>04 / 06</span></div>
     </a>
     <a class="card" href="https://github.com/chinthanshetty07/Agent-reliability-benchmark" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor aria-label="Reliability Benchmark: Strict, repeatable grading of a local LLM">
       <div class="card-fr" data-frame>

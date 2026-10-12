@@ -134,8 +134,6 @@ def devlaunch():
         a.line([(tx, yy), (tx, yy - 16)], color=EMBER, w=3, alpha=max(40, 230 - i * 22))
     a.line([(tx - 26, 190), (tx, 140), (tx + 26, 190)], color=EMBER, w=4)
     a.circle(tx, 118, 6, outline=None, fill=EMBER, fill_alpha=255)
-    a.text((92, 150), "docker run", 28, DIM, 170)
-    a.text((92, 188), "--read-only", 28, DIM, 120)
     a.save("project-devlaunch.webp")
 
 
@@ -171,8 +169,6 @@ def arc_project():
     a.circle(hx, hy, 66, outline=RED, w=4, fill=RED, fill_alpha=45)
     a.circle(hx, hy, 40, outline=EMBER, w=3)
     a.circle(hx, hy, 13, outline=None, fill=EMBER, fill_alpha=255)
-    a.text((92, 150), "tenant A | B | C", 28, DIM, 170)
-    a.text((92, 188), "one brain, no leaks", 28, DIM, 120)
     a.save("project-arc.webp")
 
 
@@ -208,7 +204,6 @@ def stockwatch():
     a.poly([(px - 56, py + 8), (px + 58, py - 36), (px + 22, py + 52), (px + 2, py + 20)], fill=BONE, outline=BONE, w=3, fill_alpha=40)
     a.line([(px + 58, py - 36), (px + 2, py + 20)], color=BONE, w=2.5)
     a.line([(px + 2, py + 20), (px - 4, py + 54), (px - 22, py + 28)], color=BONE, w=2.5, alpha=200)
-    a.text((92, 150), "link in, alert out", 28, DIM, 170)
     a.save("project-stockwatch.webp")
 
 
@@ -243,8 +238,6 @@ def prompt_engine():
             a.rect(x - 16, yy - 3, x - 8, yy + 5, 2, outline=None, fill=EMBER, fill_alpha=255)
         a.line([(x, yy), (xe, yy)], color=BONE, w=4, alpha=200)
     a.rect(868, 690, 886, 716, 2, outline=None, fill=EMBER, fill_alpha=255)
-    a.text((92, 150), "rough in, precise out", 28, DIM, 170)
-    a.text((92, 188), "scope check first", 28, DIM, 120)
     a.save("project-prompt-engine.webp")
 
 
@@ -280,8 +273,6 @@ def benchmark():
             else:
                 a.line([(x + 18, y + 18), (x + 44, y + 44)], color=DIM, w=3, alpha=180)
                 a.line([(x + 44, y + 18), (x + 18, y + 44)], color=DIM, w=3, alpha=180)
-    a.text((92, 150), "graded, not eyeballed", 28, DIM, 170)
-    a.text((92, 188), "same answer, every run", 28, DIM, 120)
     a.save("project-benchmark.webp")
 
 
@@ -316,8 +307,6 @@ def agriculture():
         a.poly(pts, fill=BONE, outline=BONE, w=3, fill_alpha=34, alpha=220)
         a.line([(sx + 2 * sgn, yy), (sx + 100 * sgn, yy - 8)], color=BONE, w=1.8, alpha=140)
     a.line([(150, sy + 4), (850, sy + 4)], color=DIM, w=2.5, alpha=170)
-    a.text((92, 150), "sensor on the soil", 28, DIM, 170)
-    a.text((92, 188), "TinyML, then LoRa", 28, DIM, 120)
     a.save("project-agriculture.webp")
 
 

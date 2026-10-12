@@ -159,14 +159,14 @@ sub('<span class="k"><b>02</b> — Still Gardens</span><span class="rule"></span
     '<span class="k"><b>02</b> — Projects</span><span class="rule"></span><span class="k">Featured &amp; more</span>')
 CARDS = [
     ("Approach", "参道", "The long climb", "01 / 03",
-     "https://github.com/chinthanshetty07/Dev-launch", "DevLaunch", "TS",
-     "Public repo → running app in hardened Docker", "Solo"),
+     "https://github.com/chinthanshetty07/Prompt-Engine", "Prompt Engine", "React · Node",
+     "Turns rough requests into precise AI prompts", "React · Node"),
     ("Lanterns", "灯籠", "Lantern court", "02 / 03",
-     "https://github.com/arc-ive/arc", "ARC", "Py",
-     "Multi-tenant AI platform: RAG, agents, approvals", "Team"),
+     "https://github.com/chinthanshetty07/Dev-launch", "DevLaunch", "TS",
+     "Public repo → running app in hardened Docker", "TypeScript · Docker"),
     ("Moonwater", "月影", "The wet court", "03 / 03",
      CLASSIC + "#stockwatch", "Stock-Watch", "Py",
-     "Restock alerts that never cry wolf", "Solo"),
+     "Restock alerts that never cry wolf", "Python"),
 ]
 for i, (ob, ojp, ometa, opos, href, name, tag, meta, who) in enumerate(CARDS):
     sub(f'    <article class="card" data-rv="up" data-view="{i}" data-cursor>',
@@ -181,8 +181,8 @@ for i, (ob, ojp, ometa, opos, href, name, tag, meta, who) in enumerate(CARDS):
 # viewports, the next three are plain still cards in the same grid.
 ARROW_SPAN = '<span class="card-ar">' + ARROW + '</span>'
 EXTRA_CARDS = [
-    ("https://github.com/chinthanshetty07/Prompt-Engine", "Prompt Engine", "React · Node",
-     "Turns rough requests into precise AI prompts", "04"),
+    ("https://github.com/arc-ive/arc", "ARC", "Python · FastAPI",
+     "Multi-tenant AI platform: RAG, agents, approvals", "04"),
     ("https://github.com/chinthanshetty07/Agent-reliability-benchmark", "Reliability Benchmark", "Python",
      "Strict, repeatable grading of a local LLM", "05"),
     (None, "Smart Agriculture", "ESP32 · LoRa",
@@ -477,18 +477,18 @@ body[data-layout-closing="b"] #eternity .cta-row .cta{ margin:0; }
 @media (max-width:820px){ body[data-layout-closing="b"] #eternity h2{ font-size:clamp(52px,17vw,110px); } }
 @media (max-width:560px){ body[data-layout-closing="b"] #eternity .open-pill{ white-space:normal; text-align:left; letter-spacing:.14em; } }
 /* projects: all six in one gallery, three across (two across on tablets) */
-body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(12px,1.6vw,24px); }
+body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(10px,1.2vw,18px); }
 body[data-layout-gallery="b"] #cards .card:first-child{ grid-row:auto; }
-body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:4/5; min-height:0; }
+body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:4/3; min-height:0; }
 .card--static{ cursor:default; }
 .card-meta{ gap:12px; }
 .card-meta span:last-child{ white-space:nowrap; }
-.card:nth-child(1) .card-fr{ background:url('secret-pathways-assets/generated/project-devlaunch.webp') center / cover no-repeat; }
-.card:nth-child(2) .card-fr{ background:url('secret-pathways-assets/generated/project-arc.webp') center / cover no-repeat; }
-.card:nth-child(3) .card-fr{ background:url('secret-pathways-assets/generated/project-stockwatch.webp') center / cover no-repeat; }
-.card:nth-child(4) .card-fr{ background:url('secret-pathways-assets/generated/project-prompt-engine.webp') center / cover no-repeat; }
-.card:nth-child(5) .card-fr{ background:url('secret-pathways-assets/generated/project-benchmark.webp') center / cover no-repeat; }
-.card:nth-child(6) .card-fr{ background:url('secret-pathways-assets/generated/project-agriculture.webp') center / cover no-repeat; }
+.card:nth-child(1) .card-fr{ background:url('secret-pathways-assets/generated/project-prompt-engine.webp') 50% 33% / cover no-repeat; }
+.card:nth-child(2) .card-fr{ background:url('secret-pathways-assets/generated/project-devlaunch.webp') 50% 37% / cover no-repeat; }
+.card:nth-child(3) .card-fr{ background:url('secret-pathways-assets/generated/project-stockwatch.webp') 50% 22% / cover no-repeat; }
+.card:nth-child(4) .card-fr{ background:url('secret-pathways-assets/generated/project-arc.webp') 50% 24% / cover no-repeat; }
+.card:nth-child(5) .card-fr{ background:url('secret-pathways-assets/generated/project-benchmark.webp') 50% 53% / cover no-repeat; }
+.card:nth-child(6) .card-fr{ background:url('secret-pathways-assets/generated/project-agriculture.webp') 50% 55% / cover no-repeat; }
 #cards .glow{ display:none; }
 @media (max-width:1080px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:820px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:1fr; } }

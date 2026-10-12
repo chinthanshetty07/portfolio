@@ -887,12 +887,12 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 /* the 3D world recedes behind a flat dark veil. A CSS filter on the canvas
    would do the same visually but costs a full-screen pass every frame
    (measured: 60 fps -> 30 fps), so the veil is a plain fixed layer. */
-body::before{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background:rgba(0,0,0,.66); opacity:.8;
+body::before{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; background:rgba(0,0,0,.66); opacity:.56;
   transition:opacity .9s var(--ease); }
 /* from the second slide on, let the animated scene show through a little more */
-body.past-hero::before{ opacity:.52; }
+body.past-hero::before{ opacity:.32; }
 /* deeper black around the edges, so the scene reads as a lit window in the dark */
-body::after{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.7;
+body::after{ content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.55;
   transition:opacity .9s var(--ease);
   background:radial-gradient(95% 82% at 50% 46%, rgba(0,0,0,0) 30%, rgba(0,0,0,.62) 72%, rgba(0,0,0,.97) 100%); }
 body.past-hero::after{ opacity:1; }
@@ -905,8 +905,8 @@ body.past-hero::after{ opacity:1; }
 .cur-dot{ display:none !important; }
 #vignette{ background:radial-gradient(120% 92% at 50% 42%, rgba(2,4,6,.18) 32%, rgba(2,4,6,.72) 100%); }
 /* deeper section scrims so every block of copy sits on near-black */
-.sec::before{ background:radial-gradient(125% 72% at 34% 50%, rgba(4,7,10,.72), rgba(4,7,10,.58) 46%, rgba(4,7,10,.30) 78%, rgba(4,7,10,0)); }
-#pathways::before{ background:radial-gradient(115% 70% at 50% 50%, rgba(4,7,10,.66), rgba(4,7,10,.42) 55%, rgba(4,7,10,0)); }
+.sec::before{ background:radial-gradient(125% 72% at 34% 50%, rgba(4,7,10,.56), rgba(4,7,10,.42) 46%, rgba(4,7,10,.2) 78%, rgba(4,7,10,0)); }
+#pathways::before{ background:radial-gradient(115% 70% at 50% 50%, rgba(4,7,10,.5), rgba(4,7,10,.3) 55%, rgba(4,7,10,0)); }
 #eternity::before{ background:radial-gradient(90% 64% at 50% 46%, rgba(4,7,10,.82), rgba(4,7,10,.86) 56%, rgba(4,7,10,.94) 82%, rgba(4,7,10,0)); }
 /* the hero copy gets its own soft backing */
 .hero-top::before{ content:''; position:absolute; inset:-40px -90px -60px -80px; z-index:-1; pointer-events:none;
@@ -997,19 +997,21 @@ body[data-layout-closing="b"] #eternity .cta-row .cta{ margin:0; }
 @media (max-width:820px){ body[data-layout-closing="b"] #eternity h2{ font-size:clamp(52px,17vw,110px); } }
 @media (max-width:560px){ body[data-layout-closing="b"] #eternity .open-pill{ white-space:normal; text-align:left; letter-spacing:.14em; } }
 /* projects: all six in one gallery, three across (two across on tablets) */
-body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(10px,1.2vw,18px); }
+body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(10px,1.2vw,18px);
+  max-width:1120px; margin-inline:auto; }
 body[data-layout-gallery="b"] #cards .card:first-child{ grid-row:auto; }
-body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:4/3; min-height:0; }
+body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:16/9; min-height:0; background-color:#090c10; }
 .card--static{ cursor:default; }
 .card-meta{ gap:12px; }
 .card-meta span:last-child{ white-space:nowrap; }
-.card:nth-child(1) .card-fr{ background:url('secret-pathways-assets/generated/project-prompt-engine.webp') 50% 33% / cover no-repeat; }
-.card:nth-child(2) .card-fr{ background:url('secret-pathways-assets/generated/project-devlaunch.webp') 50% 37% / cover no-repeat; }
-.card:nth-child(3) .card-fr{ background:url('secret-pathways-assets/generated/project-stockwatch.webp') 50% 22% / cover no-repeat; }
-.card:nth-child(4) .card-fr{ background:url('secret-pathways-assets/generated/project-arc.webp') 50% 24% / cover no-repeat; }
-.card:nth-child(5) .card-fr{ background:url('secret-pathways-assets/generated/project-benchmark.webp') 50% 53% / cover no-repeat; }
-.card:nth-child(6) .card-fr{ background:url('secret-pathways-assets/generated/project-agriculture.webp') 50% 55% / cover no-repeat; }
+.card:nth-child(1) .card-fr{ background:url('secret-pathways-assets/generated/project-prompt-engine.webp') center / cover no-repeat; }
+.card:nth-child(2) .card-fr{ background:url('secret-pathways-assets/generated/project-devlaunch.webp') center / cover no-repeat; }
+.card:nth-child(3) .card-fr{ background:url('secret-pathways-assets/generated/project-stockwatch.webp') center / cover no-repeat; }
+.card:nth-child(4) .card-fr{ background:url('secret-pathways-assets/generated/project-arc.webp') center / cover no-repeat; }
+.card:nth-child(5) .card-fr{ background:url('secret-pathways-assets/generated/project-benchmark.webp') center / cover no-repeat; }
+.card:nth-child(6) .card-fr{ background:url('secret-pathways-assets/generated/project-agriculture.webp') center / cover no-repeat; }
 #cards .glow{ display:none; }
+#cards .card-fr::after{ background:linear-gradient(transparent 68%, rgba(4,6,9,.55)); }
 @media (max-width:1080px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:820px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:1fr; } }
 /* experience: two wide plates with the full write-up */

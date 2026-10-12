@@ -17,7 +17,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 GEN = ROOT / "public/landing-pages/secret-pathways-assets/generated"
-W, H, K = 1000, 1250, 2  # logical size, supersample factor
+W, H, K = 1000, 562, 2  # 16:9 card picture; motifs are drawn in a 1000x1250 space and fitted into it
 BONE = (223, 231, 224)
 DIM = (150, 160, 154)
 RED = (232, 52, 38)
@@ -26,50 +26,58 @@ MONO = "/System/Library/Fonts/Menlo.ttc"
 
 
 class Art:
-    def __init__(self, bg_name: str, focus: tuple[float, float], zoom: float = 1.0):
+    def __init__(self, bg_name: str, focus: tuple[float, float], zoom: float = 1.0, k: float = 1.0, cy: float = 625):
+        """k scales the motif about (500, cy) so it fits the 16:9 frame."""
+        self.k, self.cy = k, cy
         src = Image.open(GEN / bg_name).convert("RGB")
-        # cover-crop to 4:5 around `focus` (fractions of the source)
         sw, sh = src.size
         cw = min(sw, sh * W / H) / zoom
         ch = cw * H / W
         x0 = max(0, min(sw - cw, focus[0] * sw - cw / 2))
         y0 = max(0, min(sh - ch, focus[1] * sh - ch / 2))
         bg = src.crop((int(x0), int(y0), int(x0 + cw), int(y0 + ch))).resize((W * K, H * K), Image.LANCZOS)
-        # dim the still so line art reads, darker towards the label at the foot
-        veil = Image.new("RGB", bg.size, (3, 6, 9))
-        grad = Image.linear_gradient("L").resize(bg.size)  # black top -> white bottom
-        mask = ImageChops.add(Image.new("L", bg.size, 118), grad.point(lambda v: int(v * 0.42)))
-        self.base = Image.composite(veil, bg, mask).convert("RGBA")
+        # a solid, near-opaque panel: the still only tints it, so the card reads as an object, not a window
+        panel = Image.new("RGB", bg.size, (9, 12, 16))
+        self.base = Image.blend(panel, bg, 0.22).convert("RGBA")
         self.layer = Image.new("RGBA", bg.size, (0, 0, 0, 0))
         self.d = ImageDraw.Draw(self.layer)
 
-    # --- primitives, in logical coordinates ---
+    # --- primitives, in the 1000x1250 motif space ---
+    def _pt(self, x, y):
+        return ((500 + (x - 500) * self.k) * K, (H / 2 + (y - self.cy) * self.k) * K)
+
     def _p(self, pts):
-        return [(x * K, y * K) for x, y in pts]
+        return [self._pt(x, y) for x, y in pts]
+
+    def _w(self, w):
+        return max(2, int(round(max(2.0, w * self.k * 1.15) * K)))
 
     def line(self, pts, color=BONE, w=3, alpha=255):
-        self.d.line(self._p(pts), fill=color + (alpha,), width=int(w * K), joint="curve")
+        self.d.line(self._p(pts), fill=color + (alpha,), width=self._w(w), joint="curve")
 
     def poly(self, pts, fill=None, outline=BONE, w=3, alpha=255, fill_alpha=0):
         p = self._p(pts)
         if fill:
             self.d.polygon(p, fill=fill + (fill_alpha,))
         if outline:
-            self.d.line(p + [p[0]], fill=outline + (alpha,), width=int(w * K), joint="curve")
+            self.d.line(p + [p[0]], fill=outline + (alpha,), width=self._w(w), joint="curve")
 
     def rect(self, x0, y0, x1, y1, r=14, outline=BONE, w=3, fill=None, fill_alpha=0, alpha=255):
-        self.d.rounded_rectangle([x0 * K, y0 * K, x1 * K, y1 * K], radius=r * K,
-                                 outline=(outline + (alpha,)) if outline else None, width=int(w * K),
+        (ax, ay), (bx, by) = self._pt(x0, y0), self._pt(x1, y1)
+        self.d.rounded_rectangle([ax, ay, bx, by], radius=r * self.k * K,
+                                 outline=(outline + (alpha,)) if outline else None, width=self._w(w),
                                  fill=(fill + (fill_alpha,)) if fill else None)
 
+    def _box(self, cx, cy, r):
+        (ax, ay), (bx, by) = self._pt(cx - r, cy - r), self._pt(cx + r, cy + r)
+        return [ax, ay, bx, by]
+
     def circle(self, cx, cy, r, outline=BONE, w=3, fill=None, fill_alpha=0, alpha=255):
-        self.d.ellipse([(cx - r) * K, (cy - r) * K, (cx + r) * K, (cy + r) * K],
-                       outline=(outline + (alpha,)) if outline else None, width=int(w * K),
+        self.d.ellipse(self._box(cx, cy, r), outline=(outline + (alpha,)) if outline else None, width=self._w(w),
                        fill=(fill + (fill_alpha,)) if fill else None)
 
     def arc(self, cx, cy, r, a0, a1, color=BONE, w=3, alpha=255):
-        self.d.arc([(cx - r) * K, (cy - r) * K, (cx + r) * K, (cy + r) * K], a0, a1,
-                   fill=color + (alpha,), width=int(w * K))
+        self.d.arc(self._box(cx, cy, r), a0, a1, fill=color + (alpha,), width=self._w(w))
 
     def dashed_circle(self, cx, cy, r, color=DIM, w=2, n=48, alpha=200):
         step = 360 / n
@@ -78,23 +86,17 @@ class Art:
                 self.arc(cx, cy, r, i * step, (i + 1) * step, color, w, alpha)
 
     def text(self, xy, s, size=26, color=BONE, alpha=255):
-        f = ImageFont.truetype(MONO, int(size * K))
-        self.d.text((xy[0] * K, xy[1] * K), s, font=f, fill=color + (alpha,))
+        f = ImageFont.truetype(MONO, max(10, int(size * self.k * 1.1 * K)))
+        self.d.text(self._pt(*xy), s, font=f, fill=color + (alpha,))
 
     def save(self, name: str):
-        glow = self.layer.filter(GaussianBlur(14 * K))
-        glow2 = self.layer.filter(GaussianBlur(5 * K))
+        glow = self.layer.filter(GaussianBlur(10 * K))
+        glow2 = self.layer.filter(GaussianBlur(3 * K))
         out = Image.alpha_composite(self.base, glow)
         out = Image.alpha_composite(out, glow2)
         out = Image.alpha_composite(out, self.layer)
-        # soft vignette
-        vig = Image.new("L", out.size, 0)
-        ImageDraw.Draw(vig).ellipse([-W * K * .15, -H * K * .1, W * K * 1.15, H * K * 1.1], fill=255)
-        vig = vig.filter(GaussianBlur(160 * K))
-        dark = Image.new("RGBA", out.size, (2, 4, 6, 255))
-        out = Image.composite(out, dark, vig.point(lambda v: 90 + int(v * 0.65)))
-        out = out.convert("RGB").resize((W - 100, H - 125), Image.LANCZOS)  # 900x1125
-        out.save(GEN / name, "WEBP", quality=86, method=6)
+        out = out.convert("RGB").resize((800, 450), Image.LANCZOS)
+        out.save(GEN / name, "WEBP", quality=88, method=6)
         print("wrote", name)
 
 
@@ -103,7 +105,7 @@ GaussianBlur = ImageFilter.GaussianBlur
 
 # ------------------------------------------------------------------ DevLaunch
 def devlaunch():
-    a = Art("kage-approach.webp", (0.5, 0.5))
+    a = Art("kage-approach.webp", (0.5, 0.5), k=0.74, cy=516)
     cx, cy, s = 500, 640, 112
     w = s * 0.866
 
@@ -130,16 +132,16 @@ def devlaunch():
     # launch trail above the hot cube
     tx, ty = proj(0, 0, 2)
     top = ty - s - 30
-    for i, yy in enumerate(range(int(top), 150, -34)):
+    for i, yy in enumerate(range(int(top), 235, -34)):
         a.line([(tx, yy), (tx, yy - 16)], color=EMBER, w=3, alpha=max(40, 230 - i * 22))
-    a.line([(tx - 26, 190), (tx, 140), (tx + 26, 190)], color=EMBER, w=4)
-    a.circle(tx, 118, 6, outline=None, fill=EMBER, fill_alpha=255)
+    a.line([(tx - 24, 228), (tx, 184), (tx + 24, 228)], color=EMBER, w=4)
+    a.circle(tx, 160, 6, outline=None, fill=EMBER, fill_alpha=255)
     a.save("project-devlaunch.webp")
 
 
 # ------------------------------------------------------------------------ ARC
 def arc_project():
-    a = Art("kage-lantern-court.webp", (0.55, 0.5))
+    a = Art("kage-lantern-court.webp", (0.55, 0.5), k=0.7, cy=518)
     hx, hy = 500, 590
     rnd = random.Random(7)
     for k, ang in enumerate((-90, 30, 150)):
@@ -174,7 +176,7 @@ def arc_project():
 
 # ----------------------------------------------------------------- Stock-Watch
 def stockwatch():
-    a = Art("kage-moonwater.webp", (0.5, 0.45))
+    a = Art("kage-moonwater.webp", (0.5, 0.45), k=0.8, cy=522)
     x0, x1, y0, y1 = 130, 870, 330, 790
     for i in range(5):
         y = y0 + i * (y1 - y0) / 4
@@ -184,7 +186,7 @@ def stockwatch():
     # availability signal: out of stock (flat, low), then back in stock (steps up)
     pts = [(x0, 740), (230, 745), (330, 738), (430, 742), (520, 735), (590, 520), (660, 470), (750, 430), (x1, 395)]
     area = pts + [(x1, y1), (x0, y1)]
-    a.d.polygon([(x * K, y * K) for x, y in area], fill=RED + (36,))
+    a.poly(area, fill=RED, outline=None, fill_alpha=46)
     a.line(pts, color=EMBER, w=5)
     a.text((140, 805), "OUT OF STOCK", 24, DIM, 190)
     a.text((600, 805), "IN STOCK", 24, EMBER, 230)
@@ -209,7 +211,7 @@ def stockwatch():
 
 # --------------------------------------------------------------- Prompt Engine
 def prompt_engine():
-    a = Art("kage-sanmon-preview.webp", (0.5, 0.45))
+    a = Art("kage-sanmon-preview.webp", (0.5, 0.45), k=1.1, cy=540)
     rnd = random.Random(3)
     # rough request
     a.rect(90, 340, 410, 740, 18, outline=DIM, w=3, alpha=220)
@@ -243,7 +245,7 @@ def prompt_engine():
 
 # ------------------------------------------------------- Reliability Benchmark
 def benchmark():
-    a = Art("kage-approach.webp", (0.3, 0.6), 1.25)
+    a = Art("kage-approach.webp", (0.3, 0.6), 1.25, k=0.7, cy=640)
     gx, gy, r = 500, 520, 230
     a.arc(gx, gy, r, 180, 360, DIM, 6, 200)
     a.arc(gx, gy, r, 180, 292, EMBER, 9)
@@ -278,7 +280,7 @@ def benchmark():
 
 # ----------------------------------------------------------- Smart Agriculture
 def agriculture():
-    a = Art("kage-moonwater.webp", (0.78, 0.5), 1.1)
+    a = Art("kage-moonwater.webp", (0.78, 0.5), 1.1, k=0.64, cy=625)
     cx, cy, sz = 430, 610, 230
     x0, y0, x1, y1 = cx - sz / 2, cy - sz / 2, cx + sz / 2, cy + sz / 2
     for i in range(6):

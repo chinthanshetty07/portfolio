@@ -3,6 +3,8 @@
 Personal portfolio for Chinthan Shetty, software engineer (full-stack and AI applications).
 Single-page static site: React 19, TypeScript, Vite, Tailwind CSS 4, Motion, Lenis and lucide-react.
 
+**Live:** [chinthanshetty.in](https://chinthanshetty.in)
+
 ## Commands
 
 ```bash

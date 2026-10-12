@@ -199,7 +199,7 @@ EXTRA_CARDS = [
      "Multi-tenant AI platform: RAG, agents, approvals", "04"),
     ("https://github.com/chinthanshetty07/Agent-reliability-benchmark", "Reliability Benchmark", "Python",
      "Strict, repeatable grading of a local LLM", "05"),
-    (None, "Smart Agriculture", "ESP32 · LoRa",
+    ("https://github.com/chinthanshetty07/Smart-Agriculture", "Smart Agriculture", "ESP32 · LoRa",
      "On-device TinyML crop monitoring over LoRa", "06"),
 ]
 
@@ -356,6 +356,7 @@ sub('''    <div><h4>Chapters</h4><ul>
       <li><a href="https://github.com/chinthanshetty07/Dev-launch" {EXT} data-cursor>DevLaunch</a></li>
       <li><a href="https://github.com/arc-ive/arc" {EXT} data-cursor>ARC</a></li>
       <li><a href="https://github.com/chinthanshetty07/Prompt-Engine" {EXT} data-cursor>Prompt Engine</a></li>
+      <li><a href="https://github.com/chinthanshetty07/Smart-Agriculture" {EXT} data-cursor>Smart Agriculture</a></li>
       <li><a href="{CLASSIC}#work" {EXT} data-cursor>All case studies</a></li>
     </ul></div>
     <div><h4>Elsewhere</h4><ul>

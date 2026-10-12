@@ -251,6 +251,7 @@ export const otherWork = [
     year: 'Dec 2025',
     body: 'Offline farm monitoring: ESP32 and ESP32-CAM run TensorFlow Lite Micro models for on-device anomaly and disease detection, and send compact results over an SX1278 LoRa link to a Tkinter dashboard with no internet dependency.',
     stack: ['C/C++', 'ESP32', 'TensorFlow Lite Micro', 'LoRa', 'Python / Tkinter'],
+    repo: 'https://github.com/chinthanshetty07/Smart-Agriculture',
   },
   {
     name: 'QuestVerse',

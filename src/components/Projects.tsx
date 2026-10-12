@@ -154,6 +154,17 @@ export function Projects() {
                 <h4 className="mt-2 font-display text-lg font-semibold tracking-tight">{w.name}</h4>
                 <p className="mt-2 text-sm text-dim text-pretty">{w.body}</p>
                 <p className="mt-auto pt-4 text-xs text-faint">{w.stack.join(', ')}</p>
+                {w.repo && (
+                  <a
+                    href={w.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1.5 self-start text-sm text-dim transition-colors hover:text-fg"
+                  >
+                    <GithubIcon className="size-4" />
+                    Code
+                  </a>
+                )}
               </Reveal>
             ))}
           </ul>

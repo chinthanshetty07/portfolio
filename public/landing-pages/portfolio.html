@@ -998,7 +998,7 @@ body[data-layout-closing="b"] #eternity .cta-row .cta{ margin:0; }
 @media (max-width:560px){ body[data-layout-closing="b"] #eternity .open-pill{ white-space:normal; text-align:left; letter-spacing:.14em; } }
 /* projects: all six in one gallery, three across (two across on tablets) */
 body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(10px,1.2vw,18px);
-  max-width:1260px; margin-inline:auto; }
+  max-width:1000px; margin-inline:auto; }
 body[data-layout-gallery="b"] #cards .card:first-child{ grid-row:auto; }
 body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:16/9; min-height:0; background-color:#090c10; }
 .card--static{ cursor:default; }
@@ -4027,14 +4027,14 @@ function buildCardCloth() {
       const out = document.createElement('canvas');
       out.className = 'cloth-out'; out.setAttribute('aria-hidden', 'true');
       fr.appendChild(out);
-      const inst = createCloth(out, get, { wind: 3, speed: .5, amplitude: 10, drape: 12,
-        brush: 2.05, brushSize: 150, damping: 1, light: .5, sheen: .1, shadow: .25,
-        cornerRadius: 12, perspective: 1200, pin: 'top' });
+      const inst = createCloth(out, get, { wind: 3, speed: .5, amplitude: 20, drape: 24,
+        brush: 2.4, brushSize: 110, damping: 1, light: .8, sheen: .22, shadow: .42,
+        cornerRadius: 12, perspective: 760, pin: 'top' });
       /* only hide the card's own painting once the fabric is really carrying it */
       if (!inst) { out.remove(); return; }
       fr.classList.add('on-cloth');
       const card = fr.closest('.card') || fr;
-      card.addEventListener('pointerenter', () => inst.setEdge(.185), { passive: true });
+      card.addEventListener('pointerenter', () => inst.setEdge(.26), { passive: true });
       card.addEventListener('pointerleave', () => inst.setEdge(.048), { passive: true });
     };
     img.onerror = () => {};

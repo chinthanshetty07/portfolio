@@ -66,10 +66,13 @@ sub("""  let g = x.createLinearGradient(0, 0, 0, c.height);
   g.addColorStop(.46, 'rgba(4,6,9,0)'); g.addColorStop(1, 'rgba(4,6,9,.80)');
   x.fillStyle = g; x.fillRect(0, 0, c.width, c.height);
 """, "")
-# the project cards are small, so the cloth's wave and drape are scaled down with them;
-# at full strength they push the picture's edges outside the card
-sub("{ wind: 3, speed: .5, amplitude: 30, drape: 40,", "{ wind: 3, speed: .5, amplitude: 10, drape: 12,")
-sub("cornerRadius: 20, perspective: 1200, pin: 'top' }", "cornerRadius: 12, perspective: 1200, pin: 'top' }")
+# the project cards are small: the wave and drape are sized for them, with a stronger 3D read
+# (closer perspective, more light, sheen and shadow); the pictures carry a margin so nothing is lost
+sub("{ wind: 3, speed: .5, amplitude: 30, drape: 40,", "{ wind: 3, speed: .5, amplitude: 20, drape: 24,")
+sub("        brush: 2.05, brushSize: 150, damping: 1, light: .5, sheen: .1, shadow: .25,",
+    "        brush: 2.4, brushSize: 110, damping: 1, light: .8, sheen: .22, shadow: .42,")
+sub("inst.setEdge(.185)", "inst.setEdge(.26)")
+sub("cornerRadius: 20, perspective: 1200, pin: 'top' }", "cornerRadius: 12, perspective: 760, pin: 'top' }")
 # keep the whole name inside the frame (the original fit put the last letter on the edge)
 sub("const fill = narrow ? .96 : 1.00;", "const fill = narrow ? .88 : .9;")
 sub('<div class="word-fb" aria-hidden="true">KAGE</div>',
@@ -493,7 +496,7 @@ body[data-layout-closing="b"] #eternity .cta-row .cta{ margin:0; }
 @media (max-width:560px){ body[data-layout-closing="b"] #eternity .open-pill{ white-space:normal; text-align:left; letter-spacing:.14em; } }
 /* projects: all six in one gallery, three across (two across on tablets) */
 body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(10px,1.2vw,18px);
-  max-width:1260px; margin-inline:auto; }
+  max-width:1000px; margin-inline:auto; }
 body[data-layout-gallery="b"] #cards .card:first-child{ grid-row:auto; }
 body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:16/9; min-height:0; background-color:#090c10; }
 .card--static{ cursor:default; }

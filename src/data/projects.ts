@@ -137,7 +137,7 @@ export const projects: Project[] = [
       { value: '51', label: 'test functions, fixtures from real pages' },
     ],
     repoNote: 'Private repository, code available on request',
-    site: { href: 'https://t.me/StockkkWatchhhBot', label: 'Open the bot' },
+    site: { href: 'https://telegram.me/StockkkWatchhhBot', label: 'Open the bot' },
     status: { label: 'Working · deployable', tone: 'ok' },
     flow: ['Link from chat', 'Normalize URL', 'Fetch (warm session)', 'Layered parse', 'Evaluate transition', 'Alert / remind'],
     built: [

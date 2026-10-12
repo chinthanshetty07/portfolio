@@ -182,7 +182,7 @@ CARDS = [
      "https://github.com/chinthanshetty07/Dev-launch", "DevLaunch", "TS",
      "Public repo → running app in hardened Docker", "TypeScript · Docker"),
     ("Moonwater", "月影", "The wet court", "03 / 03",
-     "https://t.me/StockkkWatchhhBot", "Stock-Watch", "Py",
+     "https://telegram.me/StockkkWatchhhBot", "Stock-Watch", "Py",
      "Restock alerts that never cry wolf", "Python"),
 ]
 for i, (ob, ojp, ometa, opos, href, name, tag, meta, who) in enumerate(CARDS):

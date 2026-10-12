@@ -491,7 +491,10 @@ body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto;
 .card:nth-child(5) .card-fr{ background:url('secret-pathways-assets/generated/project-benchmark.webp') center / cover no-repeat; }
 .card:nth-child(6) .card-fr{ background:url('secret-pathways-assets/generated/project-agriculture.webp') center / cover no-repeat; }
 #cards .glow{ display:none; }
-#cards .card-fr::after{ background:linear-gradient(transparent 68%, rgba(4,6,9,.55)); }
+/* the picture box stays exactly 16:9, so the whole picture shows; the title sits underneath it */
+body[data-layout-gallery="b"] #cards .card .card-fr{ aspect-ratio:16/9; height:auto; padding:0; margin-bottom:40px; }
+#cards .card-fr::after{ display:none; }
+#cards .card-lab{ top:calc(100% + 12px); bottom:auto; left:2px; right:2px; }
 @media (max-width:1080px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:820px){ body[data-layout-gallery="b"] #cards{ grid-template-columns:1fr; } }
 /* experience: two wide plates with the full write-up */

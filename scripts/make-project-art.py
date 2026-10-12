@@ -23,12 +23,13 @@ DIM = (150, 160, 154)
 RED = (232, 52, 38)
 EMBER = (255, 160, 110)
 MONO = "/System/Library/Fonts/Menlo.ttc"
+INSET = 0.66  # motif size relative to the card picture; the rest is margin
 
 
 class Art:
     def __init__(self, bg_name: str, focus: tuple[float, float], zoom: float = 1.0, k: float = 1.0, cy: float = 625):
         """k scales the motif about (500, cy) so it fits the 16:9 frame."""
-        self.k, self.cy = k, cy
+        self.k, self.cy = k * INSET, cy  # every motif is shrunk so a dark margin surrounds it
         src = Image.open(GEN / bg_name).convert("RGB")
         sw, sh = src.size
         cw = min(sw, sh * W / H) / zoom

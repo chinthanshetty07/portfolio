@@ -4026,9 +4026,9 @@ function buildCardCloth() {
       const out = document.createElement('canvas');
       out.className = 'cloth-out'; out.setAttribute('aria-hidden', 'true');
       fr.appendChild(out);
-      const inst = createCloth(out, get, { wind: 3, speed: .5, amplitude: 30, drape: 40,
+      const inst = createCloth(out, get, { wind: 3, speed: .5, amplitude: 10, drape: 12,
         brush: 2.05, brushSize: 150, damping: 1, light: .5, sheen: .1, shadow: .25,
-        cornerRadius: 20, perspective: 1200, pin: 'top' });
+        cornerRadius: 12, perspective: 1200, pin: 'top' });
       /* only hide the card's own painting once the fabric is really carrying it */
       if (!inst) { out.remove(); return; }
       fr.classList.add('on-cloth');

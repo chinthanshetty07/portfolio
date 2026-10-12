@@ -65,6 +65,10 @@ sub("""  let g = x.createLinearGradient(0, 0, 0, c.height);
   g.addColorStop(.46, 'rgba(4,6,9,0)'); g.addColorStop(1, 'rgba(4,6,9,.80)');
   x.fillStyle = g; x.fillRect(0, 0, c.width, c.height);
 """, "")
+# the project cards are small, so the cloth's wave and drape are scaled down with them;
+# at full strength they push the picture's edges outside the card
+sub("{ wind: 3, speed: .5, amplitude: 30, drape: 40,", "{ wind: 3, speed: .5, amplitude: 10, drape: 12,")
+sub("cornerRadius: 20, perspective: 1200, pin: 'top' }", "cornerRadius: 12, perspective: 1200, pin: 'top' }")
 # keep the whole name inside the frame (the original fit put the last letter on the edge)
 sub("const fill = narrow ? .96 : 1.00;", "const fill = narrow ? .88 : .9;")
 sub('<div class="word-fb" aria-hidden="true">KAGE</div>',

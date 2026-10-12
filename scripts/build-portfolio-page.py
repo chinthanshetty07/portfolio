@@ -56,6 +56,15 @@ sub("'600 ' + SZ + 'px Wordmark, sans-serif'", "'700 ' + SZ + 'px Onest, sans-se
 sub("document.fonts.load('600 320px Wordmark')", "document.fonts.load('700 320px Onest')")
 sub("font-family:'Wordmark','Onest',sans-serif; font-weight:600; font-size:21.4vw;",
     "font-family:'Onest',sans-serif; font-weight:700; font-size:11.2vw;")
+# the cloth plate darkens the lower half of every picture with two gradients; the pictures are already
+# composed for their cards (title sits below), so the plate keeps them at full brightness
+sub("""  let g = x.createLinearGradient(0, 0, 0, c.height);
+  g.addColorStop(.36, 'rgba(3,6,9,.05)'); g.addColorStop(1, 'rgba(3,6,9,.73)');
+  x.fillStyle = g; x.fillRect(0, 0, c.width, c.height);
+  g = x.createLinearGradient(0, 0, 0, c.height);
+  g.addColorStop(.46, 'rgba(4,6,9,0)'); g.addColorStop(1, 'rgba(4,6,9,.80)');
+  x.fillStyle = g; x.fillRect(0, 0, c.width, c.height);
+""", "")
 # keep the whole name inside the frame (the original fit put the last letter on the edge)
 sub("const fill = narrow ? .96 : 1.00;", "const fill = narrow ? .88 : .9;")
 sub('<div class="word-fb" aria-hidden="true">KAGE</div>',
@@ -478,7 +487,7 @@ body[data-layout-closing="b"] #eternity .cta-row .cta{ margin:0; }
 @media (max-width:560px){ body[data-layout-closing="b"] #eternity .open-pill{ white-space:normal; text-align:left; letter-spacing:.14em; } }
 /* projects: all six in one gallery, three across (two across on tablets) */
 body[data-layout-gallery="b"] #cards{ grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto; gap:clamp(10px,1.2vw,18px);
-  max-width:1120px; margin-inline:auto; }
+  max-width:1260px; margin-inline:auto; }
 body[data-layout-gallery="b"] #cards .card:first-child{ grid-row:auto; }
 body[data-layout-gallery="b"] #cards .card .card-fr{ flex:0 0 auto; height:auto; aspect-ratio:16/9; min-height:0; background-color:#090c10; }
 .card--static{ cursor:default; }

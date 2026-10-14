@@ -1325,48 +1325,6 @@ body[data-layout-curriculum="b"] #cur .les:nth-child(n){ grid-column:span 3; }
   </div>
 </section>
 
-<!-- ============================================================ footer -->
-<footer class="foot" data-cam="5">
-  <!-- foreground: one planting along the lower edge of the colophon -->
-  <div class="fg" data-fg="foot" aria-hidden="true">
-    <span class="fg-el fg-bush" data-fg-in="up">
-      <img src="secret-pathways-assets/foreground/png/garden-bush.webp" alt="" width="1717" height="876" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-grass" data-fg-in="up">
-      <img src="secret-pathways-assets/foreground/png/tall-grass.webp" alt="" width="1717" height="916" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-stones" data-fg-in="up">
-      <img src="secret-pathways-assets/foreground/png/basalt-stones.webp" alt="" width="1536" height="996" loading="lazy" decoding="async">
-    </span>
-  </div>
-  <div class="foot-grid">
-        <div><h4>Sections</h4><ul>
-      <li><a href="#gate" data-cursor>About</a></li>
-      <li><a href="#pathways" data-cursor>Work</a></li>
-      <li><a href="#lessons" data-cursor>Experience</a></li>
-      <li><a href="#eternity" data-cursor>Contact</a></li>
-    </ul></div>
-    <div><h4>Projects</h4><ul>
-      <li><a href="https://github.com/chinthanshetty07/Dev-launch" target="_blank" rel="noopener noreferrer" data-cursor>DevLaunch</a></li>
-      <li><a href="https://github.com/arc-ive/arc" target="_blank" rel="noopener noreferrer" data-cursor>ARC</a></li>
-      <li><a href="https://github.com/chinthanshetty07/Prompt-Engine" target="_blank" rel="noopener noreferrer" data-cursor>Prompt Engine</a></li>
-      <li><a href="https://github.com/chinthanshetty07/Smart-Agriculture" target="_blank" rel="noopener noreferrer" data-cursor>Smart Agriculture</a></li>
-      <li><a href="/classic#work" target="_blank" rel="noopener noreferrer" data-cursor>All case studies</a></li>
-    </ul></div>
-    <div><h4>Elsewhere</h4><ul>
-      <li><a href="https://github.com/chinthanshetty07" target="_blank" rel="noopener noreferrer" data-cursor>GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/chinthan-shetty-640178380/" target="_blank" rel="noopener noreferrer" data-cursor>LinkedIn</a></li>
-      <li><a href="/Chinthan_Shetty_Resume.pdf" target="_blank" rel="noopener noreferrer" data-cursor>Résumé (PDF)</a></li>
-      <li><a href="mailto:chinthanshettycs@gmail.com" target="_blank" rel="noopener noreferrer" data-cursor>Email</a></li>
-    </ul></div>
-  </div>
-  <div class="foot-base">
-    <span>© 2026 Chinthan Shetty</span>
-    <span>Scene: ThreeUI Kage</span>
-    <span>WebGL · Onest · Bengaluru</span>
-  </div>
-</footer>
-
 </div><!-- /.page -->
 
 <!-- The near plane of the active chapter is parked here rather than inside its
@@ -4497,7 +4455,7 @@ function wireHeroExit() {
 function wireNav() {
   let last = 0;
   const rail = $('#rail');
-  const names = ['Intro', 'About', 'Work', 'Experience', 'Contact', 'Links'];
+  const names = ['Intro', 'About', 'Work', 'Experience', 'Contact'];
   SECS.forEach((s, i) => {
     const b = document.createElement('button');
     b.innerHTML = '<i></i>'; b.title = names[i] || '';

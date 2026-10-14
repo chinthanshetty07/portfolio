@@ -324,57 +324,12 @@ sub('''    <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="
 </section>''')
 
 # ------------------------------------------------------------------ footer
-sub('''      <svg viewBox="0 0 44 44" fill="none" width="34" height="34" aria-hidden="true">
-        <circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/>
-        <path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/>
-      </svg>
-      <p>A five-chapter night walk through a Kyoto mountain temple. Three illustrated garden field notes
-        sit inside a live Three.js sanctuary.</p>''',
-    '''      ''')
-sub('<div class="foot-brand">\n      \n    </div>\n', '')
-sub('''    <div><h4>Chapters</h4><ul>
-      <li><a href="#gate" data-cursor>The Sanmon</a></li>
-      <li><a href="#pathways" data-cursor>Still Gardens</a></li>
-      <li><a href="#lessons" data-cursor>Sacred Craft</a></li>
-      <li><a href="#eternity" data-cursor>Afterlight</a></li>
-    </ul></div>
-    <div><h4>Practice</h4><ul>
-      <li><a href="#lessons" data-cursor>Borrowed scenery</a></li>
-      <li><a href="#lessons" data-cursor>Lantern light</a></li>
-      <li><a href="#lessons" data-cursor>Charred cypress</a></li>
-      <li><a href="#lessons" data-cursor>Raked gravel</a></li>
-    </ul></div>
-    <div><h4>Elsewhere</h4><ul>
-      <li><a href="#top" data-cursor>Journal</a></li>
-      <li><a href="#top" data-cursor>Field notes</a></li>
-      <li><a href="#top" data-cursor>Colophon</a></li>
-    </ul></div>''',
-    f'''    <div><h4>Sections</h4><ul>
-      <li><a href="#gate" data-cursor>About</a></li>
-      <li><a href="#pathways" data-cursor>Work</a></li>
-      <li><a href="#lessons" data-cursor>Experience</a></li>
-      <li><a href="#eternity" data-cursor>Contact</a></li>
-    </ul></div>
-    <div><h4>Projects</h4><ul>
-      <li><a href="https://github.com/chinthanshetty07/Dev-launch" {EXT} data-cursor>DevLaunch</a></li>
-      <li><a href="https://github.com/arc-ive/arc" {EXT} data-cursor>ARC</a></li>
-      <li><a href="https://github.com/chinthanshetty07/Prompt-Engine" {EXT} data-cursor>Prompt Engine</a></li>
-      <li><a href="https://github.com/chinthanshetty07/Smart-Agriculture" {EXT} data-cursor>Smart Agriculture</a></li>
-      <li><a href="{CLASSIC}#work" {EXT} data-cursor>All case studies</a></li>
-    </ul></div>
-    <div><h4>Elsewhere</h4><ul>
-      <li><a href="{GITHUB}" {EXT} data-cursor>GitHub</a></li>
-      <li><a href="{LINKEDIN}" {EXT} data-cursor>LinkedIn</a></li>
-      <li><a href="{RESUME}" {EXT} data-cursor>Résumé (PDF)</a></li>
-      <li><a href="mailto:{EMAIL}" {EXT} data-cursor>Email</a></li>
-    </ul></div>''')
-sub('<span>© 2026 Kage — Kage no Michi</span>', '<span>© 2026 Chinthan Shetty</span>')
-sub('<span class="jp">静けさは一つの技である</span>', '<span>Scene: ThreeUI Kage</span>')
-sub('<span>WebGL · Onest · Kyoto</span>', '<span>WebGL · Onest · Bengaluru</span>')
+# no footer: the page ends on the Contact chapter, which becomes the last camera stop
+sub('<!-- ============================================================ footer -->\n<footer class="foot" data-cam="5">\n  <!-- foreground: one planting along the lower edge of the colophon -->\n  <div class="fg" data-fg="foot" aria-hidden="true">\n    <span class="fg-el fg-bush" data-fg-in="up">\n      <img src="secret-pathways-assets/foreground/png/garden-bush.webp" alt="" width="1717" height="876" loading="lazy" decoding="async">\n    </span>\n    <span class="fg-el fg-grass" data-fg-in="up">\n      <img src="secret-pathways-assets/foreground/png/tall-grass.webp" alt="" width="1717" height="916" loading="lazy" decoding="async">\n    </span>\n    <span class="fg-el fg-stones" data-fg-in="up">\n      <img src="secret-pathways-assets/foreground/png/basalt-stones.webp" alt="" width="1536" height="996" loading="lazy" decoding="async">\n    </span>\n  </div>\n  <div class="foot-grid">\n    <div class="foot-brand">\n      <svg viewBox="0 0 44 44" fill="none" width="34" height="34" aria-hidden="true">\n        <circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/>\n        <path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/>\n      </svg>\n      <p>A five-chapter night walk through a Kyoto mountain temple. Three illustrated garden field notes\n        sit inside a live Three.js sanctuary.</p>\n    </div>\n    <div><h4>Chapters</h4><ul>\n      <li><a href="#gate" data-cursor>The Sanmon</a></li>\n      <li><a href="#pathways" data-cursor>Still Gardens</a></li>\n      <li><a href="#lessons" data-cursor>Sacred Craft</a></li>\n      <li><a href="#eternity" data-cursor>Afterlight</a></li>\n    </ul></div>\n    <div><h4>Practice</h4><ul>\n      <li><a href="#lessons" data-cursor>Borrowed scenery</a></li>\n      <li><a href="#lessons" data-cursor>Lantern light</a></li>\n      <li><a href="#lessons" data-cursor>Charred cypress</a></li>\n      <li><a href="#lessons" data-cursor>Raked gravel</a></li>\n    </ul></div>\n    <div><h4>Elsewhere</h4><ul>\n      <li><a href="#top" data-cursor>Journal</a></li>\n      <li><a href="#top" data-cursor>Field notes</a></li>\n      <li><a href="#top" data-cursor>Colophon</a></li>\n    </ul></div>\n  </div>\n  <div class="foot-base">\n    <span>© 2026 Kage — Kage no Michi</span>\n    <span class="jp">静けさは一つの技である</span>\n    <span>WebGL · Onest · Kyoto</span>\n  </div>\n</footer>\n\n', "")
 
 # ------------------------------------------------------------------ rail
 sub("const names = ['The Hidden Gate', 'The Sanmon', 'Still Gardens', 'Sacred Craft', 'Afterlight', 'Colophon'];",
-    "const names = ['Intro', 'About', 'Work', 'Experience', 'Contact', 'Links'];")
+    "const names = ['Intro', 'About', 'Work', 'Experience', 'Contact'];")
 
 # ------------------------------------------------- readability: content leads
 # The scene is a backdrop here, not the subject. Dim and soften it, drop the
